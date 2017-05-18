@@ -1,0 +1,18 @@
+(Following last weeks survey, the project will be conducted using python (version 3))
+Code log in page
+Code sign up page 
+Create a database
+Write a code to enable database migrations
+Write a code to enable database downgrades
+Write a code to enable database upgrades
+Code add questions feature
+Code calculate outliers feature
+Code choose pilot study feature
+Code generate link feature
+Code send link to study participants
+Code fill in response feature
+Code check outliers feature (with checkbox for researchers)
+Code check outliers feature (for study participants)
+Code download results feature
+Code Enter responses feature
+Code Submit responses feature
