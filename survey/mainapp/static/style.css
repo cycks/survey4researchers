@@ -1,0 +1,48 @@
+body {
+    color: black;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: silver;
+    background-repeat: no-repeat;
+}
+
+.navbar {
+    background-color: #FA6501;
+}
+
+.signup-box{
+    margin-right: 50px;
+    margin-left: 350px;
+}
+
+
+form {
+    display: block;
+    margin-top: 0em;
+    width: 60%;
+}
+.col-sm-6 {
+    color: black;
+
+
+}
+.footer {
+    color: black;
+    text-align: left;
+    background-color: #FA6501;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1150px;
+    border-radius: 2px;
+}
+
+p {
+    font-family: verdana;
+    font-size: 20px;
+    color: black;
+    padding-left: 15px;
+}

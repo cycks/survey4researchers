@@ -1,0 +1,18 @@
+
+
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content%}
+
+
+<h1>Welcome to Django Store</h1>
+{% if user.username %}
+<p>Welcome {{ user.username }}!
+Here you can show your content!</p><br/>
+<a href="logout">logout</a>
+{% else %}
+<p>Welcome anonymous user!
+You need to <a href="/login/">login</a></p>
+{% endif %}
+
+{% endblock  %}

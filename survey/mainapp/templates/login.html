@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content%}
+{% load bootstrap %}
+
+<div class = "signup-box">
+	<h2>User Login</h2>
+	{% if form.has_errors %}
+	<p>Your username and password didn't match. Please try again.</p>
+	{% endif %}
+	<form class="form-horizontal" action="signup/" method="post">
+		{% csrf_token %}
+		<!-- {{ form|bootstrap }} -->
+		{{ form.email.label }}
+		{{ form.email }}
+		{{ form.password.label }}
+		{{ form.password }}<br>
+		<input type="submit" value="Submit" />
+	</form>
+</div>
+
+{% endblock  %}
