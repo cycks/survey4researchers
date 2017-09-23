@@ -7,6 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required = True)
+
 	class Meta:
 		model = User
 		fields = ('username',
@@ -15,29 +16,22 @@ class RegistrationForm(UserCreationForm):
 		 'email',
 		 'password1',
 		 'password2' )
-		# help_texts = {
-  #           'username': None,
-  #           'email': None,
-  #           'password': None,
-  #       }
+		help_texts = {'username': None, 'email': None, 'password1': None}
 	
-	def clean(self):
-		cleaned_data = super(RegistrationForm, self).clean()
-		password1 = self.cleaned_data.get("password1")
-		password2 = self.cleaned_data.get("password2")
-
-		if not password2:
-			raise forms.ValidationError("You must confirm your password")
-		if password1 != password2:
-			self.add_error('password2', "Password does not match")
-		return cleaned_data
+	def clean_password2(self):
+		if 'password1' in self.cleaned_data:
+			password1 = self.cleaned_data['password1']
+			password2 = self.cleaned_data['password2']
+			if password1 == password2:
+				return password2
+		raise forms.ValidationError('Passwords do not match.')
 
 	def save(self, commit=True):
 		user = super(RegistrationForm, self).save(commit =  False)
 		user.first_name = self.cleaned_data['first_name']
 		user.last_name = self.cleaned_data['last_name']
 		user.email = self.cleaned_data['email']
-		password = self.cleaned_data.get("password2")
+		password = self.cleaned_data["password2"]
 
 		if commit:
 			user.save

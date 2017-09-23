@@ -11,12 +11,12 @@ def home(request):
 	return render(request ,'home.html')
 
 # def signup(request):
-# 	form = RegistrationForm()
-# 	return render(request, 'signup.html', {'form': form})
+#   form = RegistrationForm()
+#   return render(request, 'signup.html', {'form': form})
 
 
 
-def register_page(request):
+def signup(request):
 	'''This function is meant to collect data from the signup page 
 	and post the information to the user table in the database.
 	I currently cannot post the information to the database'''
@@ -24,12 +24,12 @@ def register_page(request):
 		form = RegistrationForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return HttpResponse('<h1>The form is valid!<h1>')
 			return redirect('/login.html')
 		else:
 			form = RegistrationForm(request.POST)
-			args = {'form':form}
-			return render(request, 'signup', args)
+			args = {'form': form}
+			messages.error(request, "Error")
+			return render(request, 'signup.html', args)
 	else:
 		form = RegistrationForm()
 		return render(request, 'signup.html', {'form': form})
@@ -49,7 +49,6 @@ def loggedin(request):
 			if user is not None:
 				if user.is_active:
 					login(request, user)
-					return HttpResponseRedirect('/')
 				else:
 					print("The account is not active!")
 			else:

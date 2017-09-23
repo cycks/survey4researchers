@@ -20,7 +20,7 @@
 						<li ><a href="#">Contatc Us</a></li>
 						<li ><a href="#">About</a></li>
 						<li ><a href="#">How it Works</a></li>
-						<li ><a href="{% url 'register_page' %}">Sign up</a></li>
+						<li ><a href="{% url 'signup' %}">Sign up</a></li>
 						{% if user.is_authenticated %}
 						<li ><a href="{% url 'login' %}">Log out</a></li>
 						{% else %}

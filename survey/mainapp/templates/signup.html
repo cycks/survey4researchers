@@ -2,21 +2,14 @@
 {% load staticfiles %}
 {% block content%}
 {% load bootstrap %}
-<script>
-	{% if messages %}
-		{% for message in messages %}
-			alert(message);
-		{% endfor %}
-	{% endif %}
- </script>
 
 <div class = "signup-box">
 	<h2>Sign up</h2>
-	<form class="form-horizontal" action="register_page" method="post">
+	<form class="form-vertical" action="." method="post">
 		{% csrf_token %}
-		<!-- {{ form|bootstrap }} -->
+		{{ form|bootstrap }}
 		
-		{{ form.username.label }}
+		<!-- {{ form.username.label }}
 		{{ form.username }}
 		{{ form.first_name.label }}
 		{{ form.first_name }}
@@ -27,7 +20,7 @@
 		{{ form.password1.label }}
 		{{ form.password1 }}
 		{{ form.password2.label }}
-		{{ form.password2 }}<br>	
+		{{ form.password2 }}<br>	 -->
 		<input type="submit" value="Submit" />
 	</form>
 </div>
