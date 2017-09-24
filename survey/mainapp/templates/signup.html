@@ -8,19 +8,6 @@
 	<form class="form-vertical" action="." method="post">
 		{% csrf_token %}
 		{{ form|bootstrap }}
-		
-		<!-- {{ form.username.label }}
-		{{ form.username }}
-		{{ form.first_name.label }}
-		{{ form.first_name }}
-		{{ form.last_name.label }}
-		{{ form.last_name }}
-		{{ form.email.label }}
-		{{ form.email }}
-		{{ form.password1.label }}
-		{{ form.password1 }}
-		{{ form.password2.label }}
-		{{ form.password2 }}<br>	 -->
 		<input type="submit" value="Submit" />
 	</form>
 </div>

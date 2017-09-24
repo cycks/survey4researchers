@@ -22,9 +22,9 @@
 						<li ><a href="#">How it Works</a></li>
 						<li ><a href="{% url 'signup' %}">Sign up</a></li>
 						{% if user.is_authenticated %}
-						<li ><a href="{% url 'login' %}">Log out</a></li>
+						<li ><a href="{% url 'loggedin' %}">Log out</a></li>
 						{% else %}
-						<li ><a href="{% url 'login' %}">Log in</a></li>
+						<li ><a href="{% url 'loggedin' %}">Log in</a></li>
 						{% endif %}
 					</ul>
 					

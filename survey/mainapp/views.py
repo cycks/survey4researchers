@@ -23,8 +23,18 @@ def signup(request):
 	if request.method == "POST":
 		form = RegistrationForm(request.POST)
 		if form.is_valid():
-			form.save()
-			return redirect('/login.html')
+			user = User()
+			user.first_name = form.cleaned_data['first_name']
+			user.last_name = form.cleaned_data['last_name']
+			user.username = form.cleaned_data['username']
+			user.email = form.cleaned_data['email']
+			user.password1 = form.cleaned_data['password1']
+			user.password2 = form.cleaned_data['password2']
+			if not (User.objects.filter(email=user.email).exists()):
+				user.save()
+			else:
+				raise forms.ValidationError('Looks email already exists.')
+			return redirect('loggedin')
 		else:
 			form = RegistrationForm(request.POST)
 			args = {'form': form}
