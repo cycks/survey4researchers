@@ -2,44 +2,30 @@ from django.shortcuts import render, redirect, render_to_response
 from .forms import RegistrationForm, LoginForm
 from .models import User
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.http import HttpResponse
-from django.db import IntegrityError
+
 
 # Create your views here.
 def home(request):
 	return render(request, 'home.html')
 
-# def signup(request):
-#   form = RegistrationForm()
-#   return render(request, 'signup.html', {'form': form})
-
-
-
 def signup(request):
-	'''This function is meant to collect data from the signup page 
-	and post the information to the user table in the database.
-	I currently cannot post the information to the database'''
 	if request.method == "POST":
 		form = RegistrationForm(request.POST)
 		if form.is_valid():
+			form.save(commit = False)
 			user = User()
 			user.first_name = form.cleaned_data['first_name']
+			print('the first name is', user.first_name)
 			user.last_name = form.cleaned_data['last_name']
+			print('the last name is', user.last_name)
 			user.username = form.cleaned_data['username']
+			print('the user name is', user.username)
 			user.email = form.cleaned_data['email']
+			print('the email is',user.email)
 			user.password1 = form.cleaned_data['password1']
 			user.password2 = form.cleaned_data['password2']
-			
-			try:
-				user.save()
-			except IntegrityError as e:
-				return HttpResponse("<h3> A different user already registered that email </h3>")
-				# display = "A User name with that email already exists"
-				# form = RegistrationForm(request.POST)
-				# args = {'form': form, 'display': display}
-				# return redirect("signup.html", args)
+			user.save()
 			return redirect('loggedin')
 		else:
 			form = RegistrationForm(request.POST)
