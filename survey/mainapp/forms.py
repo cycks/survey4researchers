@@ -26,6 +26,12 @@ class RegistrationForm(UserCreationForm):
 				return password2
 		raise forms.ValidationError('Passwords do not match.')
 
+	def clean_email(self):
+		cleaned_data = super(RegistrationForm, self).clean()
+		email = cleaned_data.get('email')
+		if User.objects.filter(email = email).exists():
+			raise forms.ValidationError('Email already exists')
+
 	def save(self, commit=True):
 		user = super(RegistrationForm, self).save(commit =  False)
 		user.first_name = self.cleaned_data['first_name']

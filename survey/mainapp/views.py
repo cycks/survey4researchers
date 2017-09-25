@@ -1,14 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from .forms import RegistrationForm, LoginForm
 from .models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
+from django.db import IntegrityError
 
 # Create your views here.
 def home(request):
-	return render(request ,'home.html')
+	return render(request, 'home.html')
 
 # def signup(request):
 #   form = RegistrationForm()
@@ -30,10 +31,15 @@ def signup(request):
 			user.email = form.cleaned_data['email']
 			user.password1 = form.cleaned_data['password1']
 			user.password2 = form.cleaned_data['password2']
-			if not (User.objects.filter(email=user.email).exists()):
+			
+			try:
 				user.save()
-			else:
-				raise forms.ValidationError('Looks email already exists.')
+			except IntegrityError as e:
+				return HttpResponse("<h3> A different user already registered that email </h3>")
+				# display = "A User name with that email already exists"
+				# form = RegistrationForm(request.POST)
+				# args = {'form': form, 'display': display}
+				# return redirect("signup.html", args)
 			return redirect('loggedin')
 		else:
 			form = RegistrationForm(request.POST)
