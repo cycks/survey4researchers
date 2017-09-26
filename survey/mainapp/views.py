@@ -16,13 +16,9 @@ def signup(request):
 			form.save(commit = False)
 			user = User()
 			user.first_name = form.cleaned_data['first_name']
-			print('the first name is', user.first_name)
 			user.last_name = form.cleaned_data['last_name']
-			print('the last name is', user.last_name)
 			user.username = form.cleaned_data['username']
-			print('the user name is', user.username)
 			user.email = form.cleaned_data['email']
-			print('the email is',user.email)
 			user.password1 = form.cleaned_data['password1']
 			user.password2 = form.cleaned_data['password2']
 			user.save()
@@ -51,6 +47,7 @@ def loggedin(request):
 			if user is not None:
 				if user.is_active:
 					login(request, user)
+					return render(request, 'dashboard.html')
 				else:
 					print("The account is not active!")
 			else:
@@ -58,7 +55,9 @@ def loggedin(request):
 		
 	else:
 		form = LoginForm()
-		return render(request, 'login.html', {'form':form})
+		args = {'form': form}
+		messages.error(request, "Error")
+		return render(request, 'login.html', args)
 
 
 def logout_view(request):

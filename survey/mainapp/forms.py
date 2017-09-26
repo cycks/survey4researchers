@@ -2,13 +2,13 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.contrib.auth.hashers import make_password
 
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required = True)
-	password1 = forms.CharField(widget=forms.PasswordInput)
-	password2 = forms.CharField(widget=forms.PasswordInput)
+	password1 = forms.CharField(widget=forms.PasswordInput())
+	password2 = forms.CharField(widget=forms.PasswordInput())
 
 	class Meta:
 		model = User
@@ -18,14 +18,17 @@ class RegistrationForm(UserCreationForm):
 		 'email',
 		 'password1',
 		 'password2' )
-		help_texts = {'username': None, 'email': None, 'password1': None}
+		help_texts = {'username': None, 'email': None}
 	
 	def clean_password2(self):
 		if 'password1' in self.cleaned_data:
 			password1 = self.cleaned_data['password1']
 			password2 = self.cleaned_data['password2']
 			if password1 == password2:
-				return password2
+				password1 = make_password(password1)
+				password2 = make_password(password2)
+				print("The hashed password is", password2)
+				return password2, password1
 		raise forms.ValidationError('Passwords do not match.')
 
 	def clean_email(self):
