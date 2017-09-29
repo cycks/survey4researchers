@@ -3,16 +3,29 @@
 {% extends 'base.html'%}
 {% load staticfiles %}
 {% block content%}
+{% load bootstrap %}
 
 
-<h1>Welcome to Django Store</h1>
-{% if user.username %}
-<p>Welcome {{ user.username }}!
-Here you can show your content!</p><br/>
-<a href="logout">logout</a>
-{% else %}
-<p>Welcome anonymous user!
-You need to <a href="/login/">login</a></p>
-{% endif %}
-
+<div class = container>
+	{% if name %}
+	<div class = "row">
+		<form class="form-horizontal" action="createsurvey" method="get">
+			{% csrf_token %}
+			<p>Hi {{ name }}! Welcome to Your Dashboard<input type="submit" value="Create survey" class = "btn btn-primary pull-right"></p>
+		</form>
+		
+	</div>
+	<div class = "row">
+		<div class = "col-md-3">
+			<p>My surveys</p>
+		</div>
+		<div class = "col-md-9">
+			<p></p>
+		</div>
+	</div>
+	
+	{% else %}
+		<p>You need to <button> <a href="/login/">login</a></button></p>
+	{% endif %}
+</div>
 {% endblock  %}

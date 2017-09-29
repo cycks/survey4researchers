@@ -3,7 +3,7 @@ from .forms import RegistrationForm, LoginForm
 from .models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -22,7 +22,7 @@ def signup(request):
 			user.password1 = form.cleaned_data['password1']
 			user.password2 = form.cleaned_data['password2']
 			user.save()
-			return redirect('loggedin')
+			return render(request, 'login.html', context)
 		else:
 			form = RegistrationForm(request.POST)
 			args = {'form': form}
@@ -41,18 +41,30 @@ def loggedin(request):
 	if request.method == "POST":
 		form = LoginForm(request.POST)
 		if form.is_valid():
-			email1 = form.cleaned_data['email']
-			password1 = form.cleaned_data['password']
-			user = authenticate(email = email1, password = password1)
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password']
+			user = authenticate(username = username, password = password)
 			if user is not None:
 				if user.is_active:
-					login(request, user)
-					return render(request, 'dashboard.html')
+					request.session.set_expiry(86400)
+					print(request.session)
+					name = user.username
+					context = {'name': name}
+					login(request)
+					return render(request, 'dashboard.html', context)
 				else:
-					print("The account is not active!")
+					form = LoginForm(request.POST)
+					args = {'form': form}
+					return render(request, 'login.html', args)
 			else:
-				print("The username and password are incorrect.")
-		
+				form = LoginForm(request.POST)
+				args = {'form': form}
+				return render(request, 'login.html', args)
+		else:
+			form = LoginForm(request.POST)
+			args = {'form': form}
+			messages.error(request, "Error")
+			return render(request, 'login.html', args)
 	else:
 		form = LoginForm()
 		args = {'form': form}
@@ -65,3 +77,13 @@ def logout_view(request):
 	return redirect('/')
 
 
+
+def create_survey(request):
+	if request.method == "GET":
+		if request.user.is_authenticated():
+			return render(request, 'survey.html')
+		else:
+			print('I have been redircted to the dahboard')
+			return render(request, 'dashboard.html')
+	else:
+		return render(request, 'dashboard.html')

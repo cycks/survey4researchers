@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content%}
+{% load bootstrap %}
+
+
+<div class = container>
+	
+	<div class = "row">
+		<p>Hi Welcome to Your Survey<input type="submit" value="submit survey" class = "btn btn-primary pull-right" action = "/create_survey"></p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-3">
+			<p>My surveys</p>
+		</div>
+		<div class = "col-md-9">
+			<p></p>
+		</div>
+	</div>
+	
+	
+		
+</div>
+{% endblock  %}

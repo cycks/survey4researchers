@@ -25,10 +25,8 @@ class RegistrationForm(UserCreationForm):
 			password1 = self.cleaned_data['password1']
 			password2 = self.cleaned_data['password2']
 			if password1 == password2:
-				password1 = make_password(password1)
 				password2 = make_password(password2)
-				print("The hashed password is", password2)
-				return password2, password1
+				return password2
 		raise forms.ValidationError('Passwords do not match.')
 
 	def clean_email(self):
@@ -52,6 +50,7 @@ class RegistrationForm(UserCreationForm):
 
 
 class LoginForm(forms.Form):
-	email = forms.EmailField(label = 'email', max_length = 50)
+	username = forms.CharField(max_length=60)
 	password = forms.CharField(label = 'password', widget=forms.PasswordInput())
+
 	
