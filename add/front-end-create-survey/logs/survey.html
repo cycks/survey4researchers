@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset ="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale = 1">
+		<title>Survey for researchers</title>
+		<link rel="stylesheet" style="text/css" href="static/bootstrap.min.css">
+		<link rel="stylesheet" style="text/css" href="static/style.css">
+	</head>
+	<body>
+		<!-- <div class = "container"> -->
+			<h1>Survey for Researchers</h1>
+			<nav class = "navbar navbar-fixed-relative">
+				<div class = "nav navbar-nav">
+					<ul class = "nav navbar-nav navbar-left">
+						<li ><a href="#">Home</a></li>
+						<li ><a href="#">Contact Us</a></li>
+						<li ><a href="#">About</a></li>
+						<li ><a href="#">How it Works</a></li>
+						<li ><a href="{% url 'account_logout' %}">Log out</a></li>
+						<li ><a href="{% url 'view_dashboard' %}">View your dashboard</a></li>
+						<li ><a href="{% url 'account_signup' %}">Sign up</a></li>
+						<li ><a href="{% url 'account_login' %}">Log in</a></li>
+					</ul>
+					
+				</div>
+			</nav>
+			<!-- <div class = container> -->
+	
+				<div class = "row header">
+					<p>Hi Welcome to Your Survey<input type="submit" value="submit survey" class = "btn btn-primary pull-right" action = "create_survey"></p>
+				</div>
+				<div class = "questioncontainer">
+					<section> 
+						<div id="question"></div>
+			    		<!-- <form >
+							<div class="form-group">
+								<label for="Type your question">Enter your question:</label>
+								<input type="text" class="form-control">
+							</div>
+							<button type="submit" class="btn btn-default">Submit</button>
+						</form> -->
+					</section>
+				</div>
+				<aside>
+			    	<h3 class = "header">Question type</h3>
+			    	<ul style="list-style-type:none">
+			    		<li><button class="btn-default"><div class="Open_ended"><p>Open ended</p></div></button></li><br>
+			    		<li><button class="btn-default"><div  class = "Dichotomous_Question"><p>Dichotomous Question</p></div></button></li><br>
+			    		<li><button class="btn-default"><div class="Multiple_choice_question"><p>Multiple choice question</p></div></button></li><br>
+			    		<li><button class="btn-default"><div class="Rating_scale_question"><p>Rating scale question</p></div></button></li><br>
+			    		<li><button class="btn-default"><div class="Bipolar_question"><p>Bipolar question</p></div></button></li><br>
+			    		<li><button class="btn-default"><div class="Likert_question"><p>Likert question</p></div></button></li><br>
+					</ul>
+				</aside>
+	
+	
+		
+			<!-- </div> -->
+
+		<!-- </div> -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script>
+			$(".Open_ended").click(function() {
+				var question = document.getElementById("question");
+				var my_form = document.createElement('FORM');
+				my_form.name='Open ended';
+
+				my_button=document.createElement('INPUT');
+				my_button.value = 'Type your question here';
+				my_button.name = 'name'; 
+				my_form.appendChild(my_button);
+				question.appendChild(my_form)
+			});
+		</script>
+		<script src="static/js/jquery-3.2.1.min.js"></script>
+		<script src="static/bootstrap.min.js"></script>
+	</body>
+</html>
+
