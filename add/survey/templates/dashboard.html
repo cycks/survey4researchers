@@ -1,0 +1,30 @@
+
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content%}
+{% load bootstrap %}
+
+
+<div class = container>
+	{% if user.is_authenticated %}
+	<div class = "row">
+		<form class="form-horizontal" action="create_survey/" method="post">
+			{% csrf_token %}
+			<p>Hi {{ name }}! Welcome to Your Dashboard<input type="submit" value="Create survey" class = "btn btn-primary pull-right"></p>
+		</form>
+		
+	</div>
+	<div class = "row">
+		<div class = "col-md-3">
+			<p>My surveys</p>
+		</div>
+		<div class = "col-md-9">
+			<p></p>
+		</div>
+	</div>
+	
+	{% else %}
+		<p>You need to <button> <a href="/login/">login</a></button></p>
+	{% endif %}
+</div>
+{% endblock  %}

@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content%}
+{% load bootstrap %}
+
+
+<div class = container>
+	
+	<div class = "row">
+		<p>Hi Welcome to Your Survey<input type="submit" value="submit survey" class = "btn btn-primary pull-right" action = "create_survey"></p>
+	</div>
+	<section> 
+    		<form>
+				<div class="form-group">
+					<label for="Type your question">Enter your question:</label>
+					<input type="text" class="form-control">
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+			</form>
+	</section>
+
+	<aside>
+    	<h3>Question type</h3>
+	</aside>
+	
+	
+		
+</div>
+{% endblock  %}
