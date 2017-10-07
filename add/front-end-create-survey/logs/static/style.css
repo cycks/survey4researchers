@@ -45,8 +45,8 @@ p {
 section
 {
     display : inline-block;
-    width : 70em;
-    height : 30em;
+    width : 69em;
+    height : 40em;
     border-width : 0.5em;
     border-style : double;
     border-color : silver;
@@ -58,7 +58,7 @@ aside
 {
     display : inline-block;
     width : 25em;
-    height : 30em;
+    height : 40em;
     border-width : 0.5em;
     border-style : double;
     border-color : silver;
@@ -70,5 +70,26 @@ aside
     width: 18em;
     border-radius: 10px;
     text-align: left;
-    background-color: #ccc;
+    background-color: #FA6501;
+
 }
+
+.btn-default1 {
+    margin-bottom: 35px;
+    margin-top: 25px;
+    text-align: center;
+    margin-right: 225px;
+}
+.btn-default2 {
+    margin-bottom: 35px;
+    margin-top: 25px;
+    text-align: center;
+    margin-right: 220px;
+}
+.form-control{
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 35px;
+    margin-top: 45px;
+} 
