@@ -74,11 +74,6 @@
 					$form.append('<input type="button" class="btn-default btn-default1" value="submit question">');
 					$('#answer').append($form);
 				});
-				var addChoice = function(){
-							$(".choices").click(function() {
-
-							});
-						}
 				$(".Dichotomous_Question").click(function() {
 					$("#questionform").remove();
 					$('#question').addClass("form-group");
@@ -91,46 +86,14 @@
 					$('#answer').addClass("form-group");
 					$("#answerform").remove();
 					$form = $("<form id='answerform'></form>");
-					
-						$(':button').click(function () {
-    						if (this.id == 'addchoice') {
-						        $("#addchoice").remove();
-								$("#submitquestion").remove();
-								$form.append('<input type="text" class="form-control col-md-6 col-md-offset-2" value="Type the choice here" style="width:50%">');
-								$form.append('<input type="radio" value="Enter choices"></br>');
-								$form.append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"></br>');
-								$form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question"></br>');
-								$(':button').click(function () {
-		    						if (this.id == 'addchoice') {
-								        $("#addchoice").remove();
-										$("#submitquestion").remove();
-										$form.append('<input type="text" class="form-control col-md-6 col-md-offset-2" value="Type the choice here" style="width:50%">');
-										$form.append('<input type="radio" value="Enter choices"></br>');
-										$form.append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"></br>');
-										$form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question"></br>');
-								    }
-								    else if (this.id == 'submitquestion') {
-								        alert('submitquestion was clicked');
-								    }
-								    $(':button').click(function () {
-    						if (this.id == 'addchoice') {
-						        $("#addchoice").remove();
-								$("#submitquestion").remove();
-								$form.append('<input type="text" class="form-control col-md-6 col-md-offset-2" value="Type the choice here" style="width:50%">');
-								$form.append('<input type="radio" value="Enter choices"></br>');
-								$form.append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"></br>');
-								$form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question"></br>');
-						    }
-						    else if (this.id == 'submitquestion') {
-						        alert('submitquestion was clicked');
-						    }
-						});
-						});
-						    }
-						    else if (this.id == 'submitquestion') {
-						        alert('submitquestion was clicked');
-						    }
-						});
+					$("body").on('click', '#addchoice', function() {
+					$("#addchoice").remove();
+					$("#submitquestion").remove();
+					$form.append('<input type="text" class="form-control col-md-6 col-md-offset-2" value="Type the choice here" style="width:50%">');
+					$form.append('<input type="radio" value="Enter choices"></br>');
+					$form.append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"></br>');
+					$form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question"></br>');
+					});
 					
 					$('#answer').append($form);
 
