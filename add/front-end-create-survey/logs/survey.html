@@ -35,18 +35,24 @@
 						<div id="question" style= "text-align: center"></div>
 
 						<div id="answer" style= "text-align: center"></div>
+
+						<div id="ratinganswer" style= "text-align: center"></div>
+
+						<div id="bipolaranswer" style= " display:inline-block;"></div>
+
+						
 			    		
 					</section>
 				</div>
 				<aside>
 			    	<h3 class = "header">Question type</h3>
 			    	<ul style="list-style-type:none">
-			    		<li><button class="btn-default Open_ended"><div><p>Open ended</p></div></button></li><br>
-			    		<li><button class="btn-default Dichotomous_Question"><div><p>Dichotomous Question</p></div></button></li><br>
-			    		<li><button class="btn-default Multiple_choice_question"><div><p>Multiple choice question</p></div></button></li><br>
-			    		<li><button class="btn-default Rating_scale_question"><div><p>Rating scale question</p></div></button></li><br>
-			    		<li><button class="btn-default Bipolar_question"><div><p>Bipolar question</p></div></button></li><br>
-			    		<li><button class="btn-default Likert_question"><div><p>Likert question</p></div></button></li><br>
+			    		<li><button id = 'null' class="btn-default Open_ended question"><div><p>Open ended</p></div></button></li><br>
+			    		<li><button id = 'null' class="btn-default Dichotomous_Question question"><div><p>Dichotomous Question</p></div></button></li><br>
+			    		<li><button id = 'null' class="btn-default Multiple_choice_question question"><div><p>Multiple choice question</p></div></button></li><br>
+			    		<li><button id = 'null' class="btn-default Rating_scale_question question"><div><p>Rating scale question</p></div></button></li><br>
+			    		<li><button id = 'null' class="btn-default Bipolar_question question"><div><p>Bipolar question</p></div></button></li><br>
+			    		<li><button id = 'null' class="btn-default Likert_question question"><div><p>Likert question</p></div></button></li><br>
 					</ul>
 				</aside>
 	
@@ -57,50 +63,7 @@
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="static/js/jquery-3.2.1.min.js"></script>
-		<script>
-			$(document).ready(function() {
-				$(".Open_ended").click(function() {
-					$("#questionform").remove();
-					$('#question').addClass("form-group");
-					$form = $("<form id='questionform'></form>");
-					$form.append('<input type="text" class="form-control col-md-6 col-md-offset-1" value="Type the question here" style="width:80%"><br>');
-					$('#question').append($form);
-
-
-					$('#answer').addClass("form-group");
-					$("#answerform").remove();
-					$form = $("<form id='answerform'></form>");
-					$form.append('<input type="text" class="form-control col-md-6 col-md-offset-1" value="Type the answer here" style="width:80%">');
-					$form.append('<input type="button" class="btn-default btn-default1" value="submit question">');
-					$('#answer').append($form);
-				});
-				$(".Dichotomous_Question").click(function() {
-					$("#questionform").remove();
-					$('#question').addClass("form-group");
-					$form = $("<form id='questionform'></form>");
-					$form.append('<input type="text" class="form-control col-md-6 col-md-offset-1" value="Type the question here" style="width:80%">');
-					$form.append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"> </br>');
-					$('#question').append($form);
-
-
-					$('#answer').addClass("form-group");
-					$("#answerform").remove();
-					$form = $("<form id='answerform'></form>");
-					$("body").on('click', '#addchoice', function() {
-					$("#addchoice").remove();
-					$("#submitquestion").remove();
-					$form.append('<input type="text" class="form-control col-md-6 col-md-offset-2" value="Type the choice here" style="width:50%">');
-					$form.append('<input type="radio" value="Enter choices"></br>');
-					$form.append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"></br>');
-					$form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question"></br>');
-					});
-					
-					$('#answer').append($form);
-
-				});
-			});
-		</script>
-		<script src="static/js/jquery-3.2.1.min.js"></script>
+		<script src="questions.js"></script>
 		<script src="static/bootstrap.min.js"></script>
 	</body>
 </html>

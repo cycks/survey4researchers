@@ -46,7 +46,7 @@ section
 {
     display : inline-block;
     width : 69em;
-    height : 40em;
+    height : 50em;
     border-width : 0.5em;
     border-style : double;
     border-color : silver;
@@ -58,7 +58,7 @@ aside
 {
     display : inline-block;
     width : 25em;
-    height : 40em;
+    height : 50em;
     border-width : 0.5em;
     border-style : double;
     border-color : silver;
@@ -75,11 +75,13 @@ aside
 }
 
 .btn-default1 {
-    margin-bottom: 35px;
-    margin-top: 25px;
+    margin-bottom: 15px;
+    margin-top: 10px;
     text-align: center;
     margin-right: 225px;
 }
+
+
 .btn-default2 {
     margin-bottom: 35px;
     margin-top: 25px;
