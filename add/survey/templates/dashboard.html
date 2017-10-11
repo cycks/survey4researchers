@@ -4,27 +4,85 @@
 {% block content%}
 {% load bootstrap %}
 
+<div class = "row header">
+	<button type="button" class="btn btn-default btn-md pull-right" data-toggle="modal" data-target="#surveyNameModal">Create survey</button>
 
-<div class = container>
-	{% if user.is_authenticated %}
-	<div class = "row">
-		<form class="form-horizontal" action="create_survey/" method="post">
-			{% csrf_token %}
-			<p>Hi {{ name }}! Welcome to Your Dashboard<input type="submit" value="Create survey" class = "btn btn-primary pull-right"></p>
-		</form>
-		
-	</div>
-	<div class = "row">
-		<div class = "col-md-3">
-			<p>My surveys</p>
-		</div>
-		<div class = "col-md-9">
-			<p></p>
-		</div>
-	</div>
-	
-	{% else %}
-		<p>You need to <button> <a href="/login/">login</a></button></p>
-	{% endif %}
+  <!-- Modal -->
+  <div class="modal fade" id="surveyNameModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Name your survey.</h4>
+        </div>
+        <div class="modal-body">
+        	<form class="form-horizontal" action="create_survey/" method="post">
+        		{% csrf_token %}
+				<label for = "nameOfSurvey">Survey Name:</label>
+				<input class="form-control" placeholder="Enter the name your survey" type="text" id = "surveyName"></br>	
+				<input type="submit" value="Create survey" class = "btn btn-default pull-right">
+	        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        	</form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+	<!-- <button class="btn btn-primary btn-md pull-right" data-target="surveyNameModal" data-toggle="modal">create survey</button>
+	<div class="modal" id = "surveyNameModal"  tabindex="-1">
+			<div class = "modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button class = "close" data-dismiss = "modal">&times;</button>
+						<h4 class = "modal-title">Name Your Survey</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-group">
+							<label for = "nameOfSurvey">Survey Name</label>
+							<input class="fom-control" placeholder="Name your survey" type="text" id = "surveyName">
+						</form>
+					</div>
+					<div class = "modal-footer"> 
+						<button class = "btn btn-primary pull-right">Create survey</button>
+						<button class = "btn btn-primary pull-right" data-dismiss = "modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div> -->
+	<!-- <form class="form-horizontal" action="create_survey/" method="post">
+		{% csrf_token %}
+		<p>Hi Welcome to Your Dashboard<button type="submit" value="Create survey" class = "btn btn-primary pull-right">Create survey</button></p>
+	</form> -->
 </div>
+<div class = "questioncontainer">
+	<section> 
+		<div id="question" style= "text-align: center"></div>
+
+		<div id="answer" style= "text-align: center"></div>
+
+		<div id="ratinganswer" style= "text-align: center"></div>
+
+		<div id="bipolaranswer" style= " display:inline-block;"></div>
+
+
+
+	</section>
+	</div>
+	<aside>
+		<h3 class = "header">Your Survey</h3>
+		<ol >
+			<!-- This section will display a list of surveys conducted by a given user. On clicking a particular survey the questions asked from the survey will be dsipalyed in the questionscontainer -->
+		</ol>
+	</aside>
+
+
+		
+			
+
+</div>
+	</body>
+</html>
 {% endblock  %}
