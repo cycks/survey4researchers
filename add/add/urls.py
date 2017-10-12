@@ -18,9 +18,7 @@ from django.contrib import admin
 from survey import views
 
 urlpatterns = [
+    url(r'^', include('survey.urls')),
 	url(r'^admin/', admin.site.urls),
 	url(r'^accounts/', include('allauth.urls')),
-	url(r'^$', views.home),
-    url(r'^view_dashboard/$', views.view_dashboard, name='view_dashboard'),
-    url(r'^view_dashboard/create_survey/$', views.create_survey, name='create_survey'),
 ]
