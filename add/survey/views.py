@@ -13,8 +13,9 @@ def home(request):
 @login_required
 def view_dashboard(request):
 	if request.method == "GET":
-		name = {'user': request.user}
-		return render(request, 'dashboard.html', name)
+		current_user = request.user
+		surveys = CreateSurvey.objects.all().filter(user = current_user)
+		return render(request, 'dashboard.html', {'surveys': surveys})
 	else:
 		return render(request, 'survey.html')
 
@@ -34,6 +35,6 @@ def create_survey(request):
 			return render(request, 'survey.html')
 		else:
 			messages.error(request, 'You already have a survey with the same name. Please try with a different survey name')
-			return redirect ('/view_dashboard/create_survey/')
+			return redirect ('/view_dashboard/')
 	else:
 		return render(request, 'dashboard.html')

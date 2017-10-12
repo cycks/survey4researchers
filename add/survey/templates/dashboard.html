@@ -69,10 +69,14 @@
 	</section>
 	</div>
 	<aside>
-		<h3 class = "header">Your Survey</h3>
-		<ol >
-			<!-- This section will display a list of surveys conducted by a given user. On clicking a particular survey the questions asked from the survey will be dispalyed in the questionscontainer -->
-		</ol>
+		<p></p>
+		<p></p>
+		<ul class="list-group" style = "padding-left: 20px; padding-top: 20px; width: 23em; ">
+			<li class="list-group-item" style = "background-color: #FA6501;"><h4>Your Surveys</h4></li>
+			{% for survey in surveys %}
+				<li class="list-group-item" style="font-size: 16px;">{{ survey|slugify}}</li>
+			{% endfor %}
+		</ul>
 	</aside>
 
 

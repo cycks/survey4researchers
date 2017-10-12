@@ -6,6 +6,9 @@ class CreateSurvey(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	survey_name = models.TextField(unique = True)
 
+	def __str__(self):
+		return self.survey_name
+
 class Question(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	survey_name = models.ForeignKey(CreateSurvey, default= 0, on_delete=models.CASCADE)

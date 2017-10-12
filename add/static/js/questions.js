@@ -234,8 +234,7 @@ $(document).ready(function() {
 	});
 });
 
-
-// $(document).on('submit', '#surveyNameForm' function(e){
+// $(document).on('submit', '#surveyNameForm', function(e){
 // 	alert('I ameking the post request');
 // 	e.preventDefault();
 // 	$.ajax({
