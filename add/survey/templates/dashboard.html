@@ -18,44 +18,18 @@
           <h4 class="modal-title">Name your survey.</h4>
         </div>
         <div class="modal-body">
-        	<form class="form-horizontal" action="create_survey/" method="post">
+        	<form id="surveyNameForm" class="form-horizontal" action="create_survey/" method="post">
         		{% csrf_token %}
 				<label for = "nameOfSurvey">Survey Name:</label>
-				<input class="form-control" placeholder="Enter the name your survey" type="text" id = "surveyName"></br>	
-				<input type="submit" value="Create survey" class = "btn btn-default pull-right">
-	        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<input class="form-control" placeholder="Type the name of your survey" type="text" name = "surveyName" required></br>
+				<input id ="surveyname" type="submit" value="Create survey" class = "btn btn-default">
+	        	<button class="btn btn-default pull-right" data-dismiss="modal">Close</button>
         	</form>
         </div>
       </div>
       
     </div>
   </div>
-  
-	<!-- <button class="btn btn-primary btn-md pull-right" data-target="surveyNameModal" data-toggle="modal">create survey</button>
-	<div class="modal" id = "surveyNameModal"  tabindex="-1">
-			<div class = "modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button class = "close" data-dismiss = "modal">&times;</button>
-						<h4 class = "modal-title">Name Your Survey</h4>
-					</div>
-					<div class="modal-body">
-						<form class="form-group">
-							<label for = "nameOfSurvey">Survey Name</label>
-							<input class="fom-control" placeholder="Name your survey" type="text" id = "surveyName">
-						</form>
-					</div>
-					<div class = "modal-footer"> 
-						<button class = "btn btn-primary pull-right">Create survey</button>
-						<button class = "btn btn-primary pull-right" data-dismiss = "modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div> -->
-	<!-- <form class="form-horizontal" action="create_survey/" method="post">
-		{% csrf_token %}
-		<p>Hi Welcome to Your Dashboard<button type="submit" value="Create survey" class = "btn btn-primary pull-right">Create survey</button></p>
-	</form> -->
 </div>
 <div class = "questioncontainer">
 	<section> 
@@ -74,7 +48,7 @@
 	<aside>
 		<h3 class = "header">Your Survey</h3>
 		<ol >
-			<!-- This section will display a list of surveys conducted by a given user. On clicking a particular survey the questions asked from the survey will be dsipalyed in the questionscontainer -->
+			<!-- This section will display a list of surveys conducted by a given user. On clicking a particular survey the questions asked from the survey will be dispalyed in the questionscontainer -->
 		</ol>
 	</aside>
 
@@ -83,6 +57,21 @@
 			
 
 </div>
-	</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- <script type="text/javascript">
+
+	
+$(document).on('submit', '#surveyNameForm', function(e){
+	alert(jQuery("[name=csrfmiddlewaretoken]").val());
+	// e.preventDefault();
+	$.ajax({
+		type:'POST',
+		url:'/create_survey/',
+		data:{survey_name: $('#surveyName').val(),
+			csrfmiddlewaretoken:jQuery("[name=csrfmiddlewaretoken]").val()
+		}
+	});
+});
+</script> -->
 </html>
 {% endblock  %}

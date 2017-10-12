@@ -234,10 +234,20 @@ $(document).ready(function() {
 	});
 });
 
-$(document).ready(function () {
-    $("#dialog").dialog({ autoOpen: false, modal: true, height: 590, width: 1005 });
-    
-            $("#OpenDialog").click(function () {
-                $("#dialog").dialog('show');
-            });
-        });
+
+// $(document).on('submit', '#surveyNameForm' function(e){
+// 	alert('I ameking the post request');
+// 	e.preventDefault();
+// 	$.ajax({
+// 		type:'POST',
+// 		url:'view_dashboard/create_survey/',
+// 		data:{
+// 			survey_name: $('#surveyName').val(),
+// 			csrfmiddlewaretoken:$('input[survey_name=csrfmiddlewaretoken]').val()
+// 		},
+// 		sucess: function(){
+// 		alert(survey_name)
+
+// 		}
+// 	});
+// });
