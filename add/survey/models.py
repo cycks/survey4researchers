@@ -23,3 +23,4 @@ class AnswerType(models.Model):
 	yes_no = models.NullBooleanField(null=True)
 	number = models.IntegerField(null=True)
 	image = models.ImageField(null=True)
+	string = models.TextField(null=True)

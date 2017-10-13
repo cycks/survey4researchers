@@ -3,8 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
 from .models import *
 from .forms import *
+import traceback
 
 # Create your views here.
 def home(request):
@@ -32,9 +34,21 @@ def create_survey(request):
 		survey_name_object = CreateSurvey.objects.filter(survey_name = survey_name).count()
 		if survey_name_object == 0:
 			CreateSurvey.objects.create(survey_name = survey_name, user = current_user)
+			messages.success(request, 'Survey naming successful.')
 			return render(request, 'survey.html')
 		else:
 			messages.error(request, 'You already have a survey with the same name. Please try with a different survey name')
 			return redirect ('/view_dashboard/')
 	else:
-		return render(request, 'dashboard.html')
+		return render(request, 'survey.html')
+
+@csrf_protect
+def display_survey(request):
+	if request.method =="POST":
+		survey_name = request.POST.get('surveyName')
+		print (''.join(traceback.format_stack()))
+		# return render(request, 'survey.html')
+	else:
+		print('This is a get request')
+		survey_name = request.POST.get('survey_name')
+		print(survey_name)

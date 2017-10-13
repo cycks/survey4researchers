@@ -7,13 +7,16 @@
 <div class = "row">
 	<button type="button" class="btn btn-default btn-md pull-right" data-toggle="modal" data-target="#surveyNameModal">Create survey</button>
 	{% if messages %}
-		<ul class="messages">
+		<ul class="messages list-group" style = "padding-left: 20px; width: 53em; ">
 		    {% for message in messages %}
-		    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		    <li class="{{ message.tags }} list-group-item list-group-item-danger" >
+		        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+		        {{ message }}
+		    </li>
 		    {% endfor %}
 		</ul>
-		{% endif %}
-	<!-- <a href="{% url 'create_survey' %}"><button type="button" class="btn btn-default btn-md pull-right" data-toggle="modal" data-target="#surveyNameModal">Create survey</button></a> -->
+	{% endif %}
+	
 
   <!-- Modal -->
   <div class="modal fade" id="surveyNameModal" role="dialog">
@@ -29,22 +32,8 @@
 
 			<form id="surveyNameForm" class="form-horizontal" action="create_survey/" method="post">
 				{% csrf_token %}
-					{% if form.errors %}
-					{% for field in form %}
-						{% for error in field.errors %}
-							<div class="alert alert-danger">
-								<strong>{{ error|escape }}</strong>
-							</div>
-						{% endfor %}
-					{% endfor %}
-					{% for error in form.non_field_errors %}
-						<div class="alert alert-danger">
-							<strong>{{ error|escape }}</strong>
-						</div>
-					{% endfor %}
-				{% endif %}
 				<label for = "nameOfSurvey">Survey Name:</label>
-				<input class="form-control" placeholder="Type the name of your survey" type="text" id = "surveyName" name = "surveyName" required></br>{{ form.errors.surveyName }}
+				<input class="form-control" placeholder="Type the name of your survey" type="text" id = "surveyName" name = "surveyName" required></br>
 				<input id ="surveyNameButton" type="submit" value="Create survey" class = "btn btn-default">
 				<button class="btn btn-default pull-right" data-dismiss="modal">Close</button>
 			</form>
@@ -69,14 +58,16 @@
 	</section>
 	</div>
 	<aside>
-		<p></p>
-		<p></p>
-		<ul class="list-group" style = "padding-left: 20px; padding-top: 20px; width: 23em; ">
-			<li class="list-group-item" style = "background-color: #FA6501;"><h4>Your Surveys</h4></li>
-			{% for survey in surveys %}
-				<li class="list-group-item" style="font-size: 16px;">{{ survey|slugify}}</li>
-			{% endfor %}
-		</ul>
+
+		<li class="list-group-item" style = "background-color: #FA6501;"><h4>Your Surveys</h4></li>
+		<form action="" method="post">
+		{% csrf_token %}
+		{% for survey in surveys %}
+			
+			<li class="list-group-item"><button class="btn-default surveyQuestions" title="You must" id = "surveyQuestions" name = 'surveyName' value = "{{ survey|slugify}}"><div><p>{{ survey|slugify}}</p></div></button></li><br>
+
+		{% endfor %}
+		</form>
 	</aside>
 
 

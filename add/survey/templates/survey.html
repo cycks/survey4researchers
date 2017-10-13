@@ -3,8 +3,20 @@
 {% block content%}
 {% load bootstrap %}
 
-<div class = "row header">
-	<p>Hi Welcome to Your Survey<input type="submit" value="submit survey" class = "btn btn-primary pull-right" action = "create_survey"></p>
+<div class = "row">
+	{% if messages %}
+		{% if message.tags == "success" %}	
+			<ul class="messages list-group" style = "padding-left: 20px; width: 53em; ">
+			    {% for message in messages %}
+			    <li class="{{ message.tags }} list-group-item list-group-item-danger" >
+			        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+			        {{ message }}
+			    </li>
+			    {% endfor %}
+			</ul>
+		{% endif %}
+	{% endif %}
+		<input type="submit" value="submit survey" class = "btn btn-primary pull-right" action = "create_survey">
 </div>
 <div class = "questioncontainer">
 	<section> 

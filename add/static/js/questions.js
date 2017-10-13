@@ -234,6 +234,25 @@ $(document).ready(function() {
 	});
 });
 
+
+
+$(document).ready(function() {
+	$("body").on('click', '.surveyQuestions', function(e){
+		$.ajax({
+			type:'POST',
+			url:'view_dashboard/display_survey/',
+			data:{
+				survey_name: $('#surveyQuestions').val(),
+				csrfmiddlewaretoken:$('input[survey_name=csrfmiddlewaretoken]').val()
+			},
+			sucess: function(data){
+			console.log(survey_name)
+
+			}
+		});
+});
+});
+
 // $(document).on('submit', '#surveyNameForm', function(e){
 // 	alert('I ameking the post request');
 // 	e.preventDefault();
