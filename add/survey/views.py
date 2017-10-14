@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_protect
 from .models import *
 from .forms import *
 import traceback
+from django.middleware import csrf
 
 # Create your views here.
 def home(request):
@@ -42,12 +43,34 @@ def create_survey(request):
 	else:
 		return render(request, 'survey.html')
 
-@csrf_protect
+
+
+
 def display_survey(request):
 	if request.method =="POST":
 		survey_name = request.POST.get('surveyName')
-		print (''.join(traceback.format_stack()))
-		# return render(request, 'survey.html')
+		current_user = request.user
+		questions = Question.objects.filter(survey_name__survey_name = survey_name)
+		questions_object = Question.objects.filter(survey_name__survey_name = survey_name).count()
+		if questions_object == 0:
+			return render(request, 'questions.html', {'questions': questions, 'surveys': survey_name})
+		return render(request, 'questions.html', {'questions': questions, 'surveys': survey_name})
+	else:
+		print('This is a get request')
+		survey_name = request.POST.get('survey_name')
+		print(survey_name)
+
+
+
+def save_question():
+	if request.method =="POST":
+		question_name = request.POST.get('surveyName')
+		current_user = request.user
+		questions = Question.objects.filter(survey_name__survey_name = survey_name)
+		questions_object = Question.objects.filter(survey_name__survey_name = survey_name).count()
+		if questions_object == 0:
+			return render(request, 'questions.html', {'questions': questions, 'surveys': survey_name})
+		return render(request, 'questions.html', {'questions': questions, 'surveys': survey_name})
 	else:
 		print('This is a get request')
 		survey_name = request.POST.get('survey_name')
