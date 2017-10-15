@@ -15,11 +15,11 @@
 		{% endif %}
 		{% if questions %}
 			{% for question in questions %}
-				<li class="list-group-item"><div><p>{{ question|slugify}}</p></div></button></li><br>
+				<li class="list-group-item"><div><p>{{ question.question_name}}</p></div></button></li><br>
 			{% endfor %}
 		{% endif %}
 
-		<div id="question" style= "text-align: center"><form id='questionform' action='display_survey/' method='post'>{% csrf_token %}</form></div>
+		<div id="question" style= "text-align: center"><form id='questionform' action='save_question/' method='post'>{% csrf_token %}</form></div>
 
 		<div id="answer" style= "text-align: center"></div>
 

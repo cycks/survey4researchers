@@ -62,16 +62,20 @@ def display_survey(request):
 
 
 
-def save_question():
+def save_question(request):
 	if request.method =="POST":
-		question_name = request.POST.get('surveyName')
+		print("This is the save question view")
+		question_name = request.POST.get('questionName')
 		current_user = request.user
-		questions = Question.objects.filter(survey_name__survey_name = survey_name)
-		questions_object = Question.objects.filter(survey_name__survey_name = survey_name).count()
-		if questions_object == 0:
-			return render(request, 'questions.html', {'questions': questions, 'surveys': survey_name})
-		return render(request, 'questions.html', {'questions': questions, 'surveys': survey_name})
+		# questions_object = Question.objects.filter(question_name__question_name__isnull=True).count()
+		Question.objects.create(question_name = question_name, user = current_user)
+		questions = Question.objects.all()
+		print(questions)
+		print('Questions successfully saved.')
+		# return render(request, 'questions.html', {'questions': questions})
+		return render(request, 'questions.html', {'questions': questions})
 	else:
 		print('This is a get request')
 		survey_name = request.POST.get('survey_name')
 		print(survey_name)
+		return redirect ('/view_dashboard/')

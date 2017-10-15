@@ -1,13 +1,11 @@
 $(document).ready(function() {
 	$(".Open_ended").click(function() {
-		$("#questionform").remove();
+		// $("#questionform").remove();
 		$('#question').addClass("form-group");
-		$form = $("<form id='questionform' action='save_question/' method='post'></form>");
-		$form.append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type a multiple choice question here" style="width:80%">');
-		$form.append('<input type="text" class="form-control col-md-6 col-md-offset-1" value="Type the answer here" style="width:80%">');
-		$form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question">');
-		$form.append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
-		$('#question').append($form);
+		$('#questionform').append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type the question here" style="width:80%; margin-bottom: 13px;"></br>');
+		$('#questionform').append('<input type="text" class="form-control col-md-6 col-md-offset-1" value="Type the answer here" style="width:80%;">');
+		$('#questionform').append('<input id="submitquestion" type="submit" class="btn-default btn-default1" value="submit question">');
+		$('#questionform').append('<input id="deletequestion" type="submit" class="btn-default btn-default1" value="delete question">');
 
 
 		// $('#answer').addClass("form-group");
@@ -18,9 +16,11 @@ $(document).ready(function() {
 		// $form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question">');
 		// $form.append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
 		// $('#answer').append($form);
-		$("body").on('click', '#submitquestion', function() {
-			location.reload();
-		});
+		
+
+		// $("body").on('click', '#submitquestion', function() {
+		// 	location.reload();
+		// });
 
 		$("body").on('click', '#deletequestion', function() {
 			location.reload();
@@ -31,14 +31,13 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 	$(".Dichotomous_Question").click(function() {
-		$("#questionform").remove();
+		// $("#questionform").remove();
 		$('#question').addClass("form-group");
-		$form = $("<form id='questionform' action='display_survey/' method='post'>{% csrf_token %}</form>");
-		$form.append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type the dichotomous question here" style="width:80%">');
-		$form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question">');
-		$form.append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"> </br>');
-		$form.append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
-		$('#question').append($form);
+		$('#questionform').append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type the dichotomous question here" style="width:80%">');
+		$('#questionform').append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question">');
+		$('#questionform').append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"> </br>');
+		$('#questionform').append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
+		// $('#question').append($form);
 
 
 		// $('#answer').addClass("form-group");
@@ -54,28 +53,28 @@ $(document).ready(function() {
 		// $form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question"></br>');
 		// $form.append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
 		// });
-		
 		// $('#answer').append($form);
-		// $("body").on('click', '#submitquestion', function() {
-		// 	location.reload();
-		// });
-		// $("body").on('click', '#deletequestion', function() {
-		// 	location.reload();
-		// });
+
+
+		$("body").on('click', '#submitquestion', function() {
+			location.reload();
+		});
+		$("body").on('click', '#deletequestion', function() {
+			location.reload();
+		});
 		
 	});
 });
 
 $(document).ready(function() {
 	$(".Multiple_choice_question").click(function(){
-		$("#questionform").remove();
+		// $("#questionform").remove();
 		$('#question').addClass("form-group");
-		$form = $("<form id='questionform' action='save_question/' method='post'>{% csrf_token %}</form>");
-		$form.append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type a multiple choice question here" style="width:80%">');
-		$form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question">');
-		$form.append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"> </br>');
-		$form.append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
-		$('#question').append($form);
+		$('#questionform').append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type a multiple choice question here" style="width:80%">');
+		$('#questionform').append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question">');
+		$('#questionform').append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"> </br>');
+		$('#questionform').append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
+		// $('#question').append($form);
 
 
 		// $("#answerform").empty();
@@ -91,14 +90,15 @@ $(document).ready(function() {
 		// $form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question"></br>');
 		// $form.append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
 		// });
-
 		// $('#answer').append($form);
-		// $("body").on('click', '#submitquestion', function() {
-		// 	location.reload();
-		// });
-		// $("body").on('click', '#deletequestion', function() {
-		// 	location.reload();
-		// });
+
+
+		$("body").on('click', '#submitquestion', function() {
+			location.reload();
+		});
+		$("body").on('click', '#deletequestion', function() {
+			location.reload();
+		});
 
 	});
 
@@ -106,14 +106,13 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 	$(".Rating_scale_question").click(function(){
-		$("#questionform").remove();
+		// $("#questionform").remove();
 		$('#question').addClass("form-group");
-		$form = $("<form id='questionform' action='display_survey/' method='post'>{% csrf_token %}</form>");
-		$form.append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type a rating scale question here" style="width:80%">');
-		$form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question">');
-		$form.append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"> </br>');
-		$form.append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
-		$('#question').append($form);
+		$('#questionform').append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type a rating scale question here" style="width:80%">');
+		$('#questionform').append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question">');
+		$('#questionform').append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"> </br>');
+		$('#questionform').append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
+		// $('#question').append($form);
 
 
 		// $('#ratinganswer').addClass("form-group");
@@ -131,12 +130,13 @@ $(document).ready(function() {
 		// });
 
 		// $('#ratinganswer').append($form);
-		// $("body").on('click', '#submitquestion', function() {
-		// 	location.reload();
-		// });
-		// $("body").on('click', '#deletequestion', function() {
-		// 	location.reload();
-		// });
+		
+		$("body").on('click', '#submitquestion', function() {
+			location.reload();
+		});
+		$("body").on('click', '#deletequestion', function() {
+			location.reload();
+		});
 
 	});
 
@@ -144,12 +144,13 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 	$(".Bipolar_question").click(function(){
-		$("#questionform").remove();
+		// $("#questionform").remove();
 		$('#question').addClass("form-group");
-		$form = $("<form id='questionform' action='display_survey/' method='post'>{% csrf_token %}</form>");
-		$form.append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type a bipolar question here" style="width:80%">');
-		$form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question">');
-		$('#question').append($form);
+		$('#questionform').append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type a bipolar question here" style="width:80%">');
+		$('#questionform').append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question">');
+		$('#questionform').append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"></br>');
+		$('#questionform').append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
+		// $('#question').append($form);
 
 
 		// $('#bipolaranswer').addClass("form-group");
@@ -172,8 +173,9 @@ $(document).ready(function() {
 		// $form.append('<input id="submitquestion" type="button" class="btn-default btn-default2" value="submit question">');
 		// $form.append('<input id="deletequestion" type="button" class="btn-default btn-default2" value="delete question">');
 		// });
+		// $('#bipolaranswer').append($form);
+		
 
-		$('#bipolaranswer').append($form);
 		$("body").on('click', '#submitquestion', function() {
 			location.reload();
 		});
@@ -187,14 +189,13 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 	$(".Likert_question").click(function(){
-		$("#questionform").remove();
+		// $("#questionform").remove();
 		$('#question').addClass("form-group");
-		$form = $("<form id='questionform' action='display_survey/' method='post'>{% csrf_token %}</form>");
-		$form.append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type a rating scale question here" style="width:80%">');
-		$form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question">');
-		$form.append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"> </br>');
-		$form.append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
-		$('#question').append($form);
+		$('#questionform').append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type a rating scale question here" style="width:80%">');
+		$('#questionform').append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question">');
+		$('#questionform').append('<input id="addchoice" type="button" class="btn-default btn-default1 choices" value="Add choices"> </br>');
+		$('#questionform').append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
+		// $('#question').append($form);
 
 
 		// $('#ratinganswer').addClass("form-group");
@@ -210,14 +211,15 @@ $(document).ready(function() {
 		// $form.append('<input id="submitquestion" type="button" class="btn-default btn-default1" value="submit question"></br>');
 		// $form.append('<input id="deletequestion" type="button" class="btn-default btn-default1" value="delete question">');
 		// });
-
 		// $('#ratinganswer').append($form);
-		// $("body").on('click', '#submitquestion', function() {
-		// 	location.reload();
-		// });
-		// $("body").on('click', '#deletequestion', function() {
-		// 	location.reload();
-		// });
+		
+
+		$("body").on('click', '#submitquestion', function() {
+			location.reload();
+		});
+		$("body").on('click', '#deletequestion', function() {
+			location.reload();
+		});
 
 	});
 
@@ -225,16 +227,16 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-	$("body").on('click', '.question', function(){
-		$("button.question").attr("disabled", true);
+	$("body").on('click', '.questionType', function(){
+		$("button.questionType").attr("disabled", true);
 		$('#deletequestion, #submitquestion, #null').click(function () {
 		    if (this.id == 'deletequestion') {
 		    	// alert('Question has been deleted')
-		         $("button.question").attr("disabled", false);
+		         $("button.questionType").attr("disabled", false);
 		    }
 		    else if (this.id == 'submitquestion') {
 		    	// alert('Question has been submitted')
-		         $("button.question").attr("disabled", false);
+		         $("button.questionType").attr("disabled", false);
 		    }
 
 		});
