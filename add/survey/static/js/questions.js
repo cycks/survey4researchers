@@ -2,11 +2,12 @@ $(document).ready(function() {
 	$(".Open_ended").click(function() {
 		// $("#questionform").remove();
 		$('#question').addClass("form-group");
-		$('#questionform').append('<input type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type the question here" style="width:80%; margin-bottom: 13px;"></br>');
-		$('#questionform').append('<input type="text" class="form-control col-md-6 col-md-offset-1" value="Type the answer here" style="width:80%;">');
+		// $('#questionform').append('<label for="question">Enter question:</label>')
+		$('#questionform').append('<input id = "question" type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type question here" style="width:80%;"></br>');
 		$('#questionform').append('<input id="submitquestion" type="submit" class="btn-default btn-default1" value="submit question">');
 		$('#questionform').append('<input id="deletequestion" type="submit" class="btn-default btn-default1" value="delete question">');
-
+		$('#questionform').append('<input name="surveyName" type="submit" class="btn-default btn-default1" value="{{ surveys}}" hidden>');
+	
 
 		// $('#answer').addClass("form-group");
 		// $("#answerform").remove();

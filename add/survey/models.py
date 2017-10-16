@@ -11,13 +11,13 @@ class CreateSurvey(models.Model):
 
 class Question(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	survey_name = models.ForeignKey(CreateSurvey, default= 0, on_delete=models.CASCADE)
+	survey_name = models.ForeignKey(CreateSurvey, on_delete=models.CASCADE)
 	question_name = models.TextField()
 
 class AnswerType(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	survey_name = models.ForeignKey(CreateSurvey, default= 0, on_delete=models.CASCADE)
-	question_name = models.ForeignKey(Question, default = 0, on_delete = models.CASCADE)
+	survey_name = models.ForeignKey(CreateSurvey, on_delete=models.CASCADE)
+	question_name = models.ForeignKey(Question, on_delete = models.CASCADE)
 	time_field = models.TimeField(default=datetime.now, null=True)
 	date_field = models.DateField(null=True)
 	yes_no = models.NullBooleanField(null=True)

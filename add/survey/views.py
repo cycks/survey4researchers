@@ -6,8 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 from .models import *
 from .forms import *
-import traceback
-from django.middleware import csrf
 
 # Create your views here.
 def home(request):
@@ -45,12 +43,13 @@ def create_survey(request):
 
 
 
-
+@login_required
 def display_survey(request):
 	if request.method =="POST":
 		survey_name = request.POST.get('surveyName')
 		current_user = request.user
-		questions = Question.objects.filter(survey_name__survey_name = survey_name)
+		questions = Question.objects.all()
+		print("the questions are ", questions)
 		questions_object = Question.objects.filter(survey_name__survey_name = survey_name).count()
 		if questions_object == 0:
 			return render(request, 'questions.html', {'questions': questions, 'surveys': survey_name})
@@ -64,16 +63,20 @@ def display_survey(request):
 
 def save_question(request):
 	if request.method =="POST":
-		print("This is the save question view")
-		question_name = request.POST.get('questionName')
 		current_user = request.user
-		# questions_object = Question.objects.filter(question_name__question_name__isnull=True).count()
-		Question.objects.create(question_name = question_name, user = current_user)
-		questions = Question.objects.all()
-		print(questions)
+		survey_name = request.POST.get('surveyName')
+		survey_name_object = CreateSurvey.objects.filter(survey_name = survey_name)
+		question_name = request.POST.get('questionName')
+		Question.objects.create(question_name = question_name,
+								user = current_user,
+								survey_name = CreateSurvey.objects.get(survey_name = survey_name))
 		print('Questions successfully saved.')
+		questions = questions_object = Question.objects.filter(survey_name__survey_name = survey_name)
+		# questions = Question.objects.all()
+		# print(questions)
 		# return render(request, 'questions.html', {'questions': questions})
-		return render(request, 'questions.html', {'questions': questions})
+		# return render(request, 'questions.html', {'questions': questions})
+		return display_survey(request)
 	else:
 		print('This is a get request')
 		survey_name = request.POST.get('survey_name')

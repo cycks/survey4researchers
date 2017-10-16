@@ -11,26 +11,31 @@
 	<section> 
 		<nav class = "navbar" style = "text-align: center; margin-top: 20px;"><h4>{{ surveys}}</h4></nav>
 		{% if not questions %}
-			<p style="text-align: center;">You do not have any questions under this survey</p>
+			<p style="text-align: center;">You do not have any questions under {{ surveys}} </p>
 		{% endif %}
 		{% if questions %}
 			{% for question in questions %}
 				<li class="list-group-item"><div><p>{{ question.question_name}}</p></div></button></li><br>
 			{% endfor %}
 		{% endif %}
+		<div>
+			<div id="question" style= "text-align: center">
+				<form id='questionform' action='save_question/' method='post'>{% csrf_token %}
+					<input type="text" id = "surveyName" name = "surveyName" value="{{ surveys}}" hidden></br>
+					
+				</form>
+			</div>
 
-		<div id="question" style= "text-align: center"><form id='questionform' action='save_question/' method='post'>{% csrf_token %}</form></div>
+			<div id="answer" style= "text-align: center"></div>
 
-		<div id="answer" style= "text-align: center"></div>
+			<div id="ratinganswer" style= "text-align: center"></div>
 
-		<div id="ratinganswer" style= "text-align: center"></div>
-
-		<div id="bipolaranswer" style= " display:inline-block;"></div>
-
+			<div id="bipolaranswer" style= " display:inline-block;"></div>
+		</div>
 	</section>
 	</div>
 	<aside>	
-		<h3 class = "header">Question type</h3>
+		<h4 class = "navbar" style="margin-right: 5px; margin-left: 5px; padding-top: 13px;">Click question type to add question</h4>
 		<ul style="list-style-type:none">
 			<li><button id = 'null' class="btn-default Open_ended questionType" title="You must submit or delete the question before proceeding after clicking this button."><div><p>Open ended</p></div></button></li><br>
 

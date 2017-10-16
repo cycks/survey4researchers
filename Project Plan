@@ -1,0 +1,16 @@
+Project Plan 
+Prior to Actual Collaboration
+Friday March 24, 2017 
+Note: This skeleton was provided to help in the brainstorming session of the coming week.
+
+The purpose of the project will be to develop a web application that will allow researchers to collect data by sending links with questionnaires to study participants. The application will have the following features.
+As a researcher, I should be able to sign up for an account using an email address.
+As a researcher, I should have the option of choosing to conduct a pilot study or conduct the actual study without piloting.
+If a researcher chooses to conduct the actual study without piloting, the user should be prompted to set outliers in each question. The user could also choose to conduct the study without setting outliers.
+If the researcher chooses to pilot the study, the application should calculate outliers for each question and store the results, which will be used as outliers for the actual study.
+As a researcher I should be able to download the results of the actual study and the pilot study in CSV format or an excel file.
+As a researcher, I should be to design both structured and semistructured questions for my study.
+As a study participant I should be able to fill in answers into the questionnaire. If any of the answers are outliers a pop up message should occur indicating that my answer is possibly a mistake and request me to confirm if that was my intended answer. 
+If the study participant’s answer is still an outlier, a dialogue box should pop up to request the study participant for more details of the answer.
+As a study participant, I should be able to submit my answers upon responding to all the questions in the questionnaire.
+The application will be similar to https://www.surveymonkey.com.
