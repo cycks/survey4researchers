@@ -9,7 +9,13 @@
 </div>
 <div class = "questioncontainer">
 	<section> 
-		<nav class = "navbar" style = "text-align: center; margin-top: 20px;"><h4>{{ surveys}}</h4></nav>
+		<div class = "row">
+			<nav class = "navbar" style = "text-align: center; margin-top: 20px;"><h4>{{ surveys}}</h4></nav>
+			<form id='deleteSurvey' action='delete_survey/' method='post'>{% csrf_token %}
+					<button class="btn-default pull-right" type="text" id = "deletesurveyName" name = "deletesurveyName" value="{{ surveys}}">Delete Survey</button></br>
+					
+				</form>
+		</div>
 		{% if not questions %}
 			<p style="text-align: center;">You do not have any questions under {{ surveys}} </p>
 		{% endif %}
@@ -19,7 +25,7 @@
 			{% endfor %}
 		{% endif %}
 		<div>
-			<div id="question" style= "text-align: center">
+			<div id="question" >
 				<form id='questionform' action='save_question/' method='post'>{% csrf_token %}
 					<input type="text" id = "surveyName" name = "surveyName" value="{{ surveys}}" hidden></br>
 					
@@ -35,7 +41,7 @@
 	</section>
 	</div>
 	<aside>	
-		<h4 class = "navbar" style="margin-right: 5px; margin-left: 5px; padding-top: 13px;">Click question type to add question</h4>
+		<h4 class = "navbar" style="margin-right: 5px; margin-left: 5px; padding-top: 13px;">Click question type to add a question</h4>
 		<ul style="list-style-type:none">
 			<li><button id = 'null' class="btn-default Open_ended questionType" title="You must submit or delete the question before proceeding after clicking this button."><div><p>Open ended</p></div></button></li><br>
 

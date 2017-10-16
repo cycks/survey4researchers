@@ -18,7 +18,9 @@ def view_dashboard(request):
 		surveys = CreateSurvey.objects.all().filter(user = current_user)
 		return render(request, 'dashboard.html', {'surveys': surveys})
 	else:
-		return render(request, 'survey.html')
+		current_user = request.user
+		surveys = CreateSurvey.objects.all().filter(user = current_user)
+		return render(request, 'dashboard.html', {'surveys': surveys})
 
 
 
@@ -30,16 +32,27 @@ def create_survey(request):
 	if request.method =="POST":
 		current_user = request.user
 		survey_name = request.POST.get('surveyName')
-		survey_name_object = CreateSurvey.objects.filter(survey_name = survey_name).count()
-		if survey_name_object == 0:
-			CreateSurvey.objects.create(survey_name = survey_name, user = current_user)
-			messages.success(request, 'Survey naming successful.')
-			return render(request, 'survey.html')
+		if " " not in survey_name:
+			survey_name_object = CreateSurvey.objects.filter(survey_name = survey_name).count()
+			if survey_name_object == 0:
+				CreateSurvey.objects.create(survey_name = survey_name, user = current_user)
+				messages.success(request, 'Survey naming successful.')
+				return view_dashboard(request)
+			else:
+				messages.error(request, 'You already have a survey with the same name. Please try with a different survey name')
+				return redirect ('/view_dashboard/')
 		else:
-			messages.error(request, 'You already have a survey with the same name. Please try with a different survey name')
+			messages.error(request, 'A survey name cannot contain white spaces. Please try again!')
 			return redirect ('/view_dashboard/')
 	else:
 		return render(request, 'survey.html')
+
+def delete_survey(request):
+	if request.method =="POST":
+		survey_name = request.POST.get('deletesurveyName')
+		print(survey_name)
+		CreateSurvey.objects.filter(survey_name=survey_name).delete()
+		return redirect ('/view_dashboard/')
 
 
 
