@@ -1,0 +1,97 @@
+body {
+    color: black;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: silver;
+    background-repeat: no-repeat;
+}
+
+.navbar {
+    background-color: #FA6501;
+}
+
+
+.header{
+    text-align: center;
+
+}
+
+.row {
+    margin-right: 15px;
+    margin-left: 0px;
+}
+
+/*.footer {
+    color: black;
+    text-align: left;
+    background-color: #FA6501;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1150px;
+    border-radius: 2px;
+}*/
+
+p {
+    font-family: verdana;
+    font-size: auto;
+    color: black;
+    padding-left: 15px;
+}
+
+section
+{
+    display : inline-block;
+    width : 68em;
+    height : 50em;
+    border-width : 0.5em;
+    border-style : double;
+    border-color : silver;
+    float: right;
+    background-color: white;
+}
+
+aside
+{
+    display : inline-block;
+    width : 25em;
+    height : 50em;
+    border-width : 0.5em;
+    border-style : double;
+    border-color : silver;
+    float: left;
+    background-color: white;
+}
+
+.btn-default {
+    width: 18em;
+    border-radius: 10px;
+    text-align: left;
+    background-color: #FA6501;
+
+}
+
+.btn-default1 {
+    margin-bottom: 15px;
+    margin-top: 10px;
+    text-align: center;
+    margin-right: 225px;
+}
+
+.btn-default2 {
+    margin-bottom: 35px;
+    margin-top: 25px;
+    text-align: center;
+    margin-right: 55px;
+    margin-left: 105px;
+}
+.form-control{
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 5px;
+    margin-top: 15px;
+} 

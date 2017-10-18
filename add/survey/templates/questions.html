@@ -1,0 +1,67 @@
+
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content%}
+{% load bootstrap %}
+
+<div class = "row">
+	
+</div>
+<div class = "questioncontainer">
+	<section> 
+		<div class = "container-fluid">
+			<div id="question" >
+				<form id='questionform' action='save_question/' method='post'>{% csrf_token %}
+					<input type="text" id = "surveyName" name = "surveyName" value="{{ surveys}}" hidden></br>
+					
+				</form>
+			</div>
+		</div>
+		
+		<div class = "container-fluid">
+			<div class="row">
+				<nav class = "navbar" style = "text-align: center;"><h4>{{ surveys}}</h4></nav>
+				<form id='deleteSurvey' action='delete_survey/' method='post'>{% csrf_token %}
+						<button class="btn-default pull-right" type="text" id = "deletesurveyName" name = "deletesurveyName" value="{{ surveys}}">Delete Survey</button></br>
+						
+				</form>
+			</div>
+		</div>
+	
+		<div class = "container-fluid">
+			<div class="row">
+				{% if not questions %}
+					<p style="padding-left: 20px;">You do not have any questions under {{ surveys}} </p>
+				{% endif %}
+				{% if questions %}
+					{% for question in questions %}
+					<li">
+							
+								<div class="col-sm-8" style="padding-top: 20px;">
+									<p>{{ question.question_name}}</p><hr>
+								</div>
+								<div class="col-sm-4" style="padding-top: 20px;">
+									<form >{% csrf_token %}
+										<button id='deleteQuestion' class="btn pull-right" type="button" value = "{{ question.question_name}}">Delete Question</button>
+										<button style="margin-right: 20px;" id='addAnswer' class="btn pull-right" type="button">Add Answer</button>
+									</form>
+								</div>
+							
+							
+					</li>
+
+					{% endfor %}
+				{% endif %}
+			<div>
+		</div>
+	</section>
+	</div>
+	<aside>	
+		<h4 class = "navbar" style="margin-right: 5px; margin-left: 5px; padding-top: 13px;">Click question type to add a question</h4>
+		<ul style="list-style-type:none">
+			<li><button id = 'null' class="btn-default addQuestion" title="You must submit or delete the question before proceeding after clicking this button."><div><p>addQuestion</p></div></button></li><br>
+		</ul>
+	</aside>
+</div>
+
+{% endblock  %}
