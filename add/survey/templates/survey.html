@@ -1,0 +1,60 @@
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content%}
+{% load bootstrap %}
+
+<div class = "row">
+	{% if messages %}
+		{% if message.tags == "success" %}	
+			<ul class="messages list-group" style = "padding-left: 20px; width: 53em; ">
+			    {% for message in messages %}
+			    <li class="{{ message.tags }} list-group-item list-group-item-danger" >
+			        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+			        {{ message }}
+			    </li>
+			    {% endfor %}
+			</ul>
+		{% endif %}
+	{% endif %}
+		<input type="submit" value="submit survey" class = "btn btn-primary pull-right" action = "create_survey">
+</div>
+<div class = "questioncontainer">
+	<section> 
+		<div id="question" style= "text-align: center"></div>
+
+		<div id="answer" style= "text-align: center"></div>
+
+		<div id="ratinganswer" style= "text-align: center"></div>
+
+		<div id="bipolaranswer" style= " display:inline-block;"></div>
+
+
+
+	</section>
+	</div>
+	<aside>
+		<h3 class = "header">Question type</h3>
+		<ul style="list-style-type:none">
+			<li><button id = 'null' class="btn-default Open_ended questionType" title="You must submit or delete the question before proceeding after clicking this button."><div><p>Open ended</p></div></button></li><br>
+
+			<li><button id = 'null' class="btn-default Dichotomous_Question questionType" title="You must submit or delete the question before proceeding after clicking this button."><div><p>Dichotomous Question</p></div></button></li><br>
+
+			<li><button id = 'null' class="btn-default Multiple_choice_question questionType" title="You must submit or delete the question before proceeding after clicking this button."><div><p>Multiple choice question</p></div></button></li><br>
+
+			<li><button id = 'null' class="btn-default Rating_scale_question questionType" title="You must submit or delete the question before proceeding after clicking this button."><div><p>Rating scale question</p></div></button></li><br>
+
+			<li><button id = 'null' class="btn-default Bipolar_question questionType" title="You must submit or delete the question before proceeding after clicking this button."><div><p>Bipolar question</p></div></button></li><br>
+
+			<li><button id = 'null' class="btn-default Likert_question questionType" title="You must submit or delete the question before proceeding after clicking this button."><div><p>Likert question</p></div></button></li><br>
+
+		</ul>
+	</aside>
+
+
+		
+			<!-- </div> -->
+
+</div>
+	</body>
+</html>
+{% endblock  %}

@@ -95,11 +95,13 @@ def save_question(request):
 
 
 def delete_question(request):
+	print("I have entered the delete_question view")
+	print(request.POST)
 	if request.method =="POST":
 		ans = dict(request.POST)
 		question_name = ans.get("question_name", None)
 		question_name = question_name [0]
-		survey_name = ans.get("survey_name", None)
+		survey_name = ans.get("surveyName", None)
 		survey_name = survey_name [0]
 		Question.objects.filter(question_name=question_name).delete()
 		questions = Question.objects.filter(survey_name__survey_name = survey_name)

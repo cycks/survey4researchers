@@ -1,0 +1,16 @@
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content%}
+
+{% if messages %}
+	<ul class="messages list-group" style = "padding-left: 20px; background-color: silver; width: 23em; ">
+	    {% for message in messages %}
+	    <li class="{{ message.tags }} list-group-item" style = " background-color: silver;">
+	        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+	        {{ message }}
+	    </li>
+	    {% endfor %}
+	</ul>
+{% endif %}
+
+{% endblock  %}

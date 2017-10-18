@@ -72,20 +72,21 @@ $.ajaxSetup({
 
 
 $(document).ready(function() {
-	$("body").on('click', '#deleteQuestion', function(e){
+	$("body").on('click', '#realQuestion', function(e){
 		e.preventDefault();
-		alert( $('#realQuestion').val());
+		alert($(this).val());
 		$.ajax({
 			type:'POST',
 			url:'/view_dashboard/display_survey/delete_question/',
 			data:{
-				question_name: $('#realQuestion').val()
+				question_name: $(this).val(),
+				surveyName:$('#surveyName').val()
 			},
 			sucess: function(data){
 				
 			}
 		});
-});
+	});
 });
 
 // $(document).on('submit', '#surveyNameForm', function(e){

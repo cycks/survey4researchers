@@ -12,8 +12,7 @@
 		<div class = "container-fluid">
 			<div id="question" >
 				<form id='questionform' action='save_question/' method='post'>{% csrf_token %}
-					<input type="text" id = "surveyName" name = "surveyName" value="{{ surveys}}" hidden></br>
-					
+					<input type="text" id = "surveyName" name = "surveyName" value="{{ surveys}}" hidden></br>	
 				</form>
 			</div>
 		</div>
@@ -22,8 +21,7 @@
 			<div class="row">
 				<nav class = "navbar" style = "text-align: center;"><h4>{{ surveys}}</h4></nav>
 				<form id='deleteSurvey' action='delete_survey/' method='post'>{% csrf_token %}
-						<button class="btn-default pull-right" type="text" id = "deletesurveyName" name = "deletesurveyName" value="{{ surveys}}">Delete Survey</button></br>
-						
+					<button class="btn-default pull-right" type="text" id = "deletesurveyName" name = "deletesurveyName" value="{{ surveys}}">Delete Survey</button></br>		
 				</form>
 			</div>
 		</div>
@@ -36,17 +34,18 @@
 				{% if questions %}
 					{% for question in questions %}
 					<li">
-							
-								<div class="col-sm-8" style="padding-top: 20px;">
-									<p>{{ question.question_name}}</p><hr>
-								</div>
-								<div class="col-sm-4" style="padding-top: 20px;">
-									<form >{% csrf_token %}
-										<button id='deleteQuestion' class="btn pull-right" type="button" value = "{{ question.question_name}}">Delete Question</button>
-										<button style="margin-right: 20px;" id='addAnswer' class="btn pull-right" type="button">Add Answer</button>
-									</form>
-								</div>
-							
+						<form >{% csrf_token %}	
+							<div class="col-sm-8" style="padding-top: 20px;">
+								<p>{{ question.question_name}}</p><hr>
+							</div>
+							<div class="col-sm-4" style="padding-top: 20px;">
+								
+								<button id="realQuestion" class="btn pull-right" type="button" value = "{{ question.question_name}}">Delete Question</button>
+								<input id = "surveyName" type="text" name="surveyName" value = "{{ surveys}}" hidden>
+								<!-- The input above s not required by the user, but it is used to send the name of the survey to the backend -->
+								<button style="margin-right: 20px;" id='addAnswer' class="btn pull-right" type="button">Add Answer</button>
+							</div>
+						</form>	
 							
 					</li>
 

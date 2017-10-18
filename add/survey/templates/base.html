@@ -1,0 +1,45 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset ="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale = 1">
+		<title>Survey for researchers</title>
+		<link rel="stylesheet" type="text/css" href = "{% static 'bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href = "{% static 'style.css' %}">
+	</head>
+	<body>
+		<div class = "container-fluid">
+			<h1>Survey for Researchers</h1>
+			<nav class = "navbar navbar-fixed-relative">
+				<div class = "nav navbar-nav">
+					<ul class = "nav navbar-nav navbar-left">
+						<li ><a href="#">Home</a></li>
+						<li ><a href="#">Contatc Us</a></li>
+						<li ><a href="#">About</a></li>
+						<li ><a href="#">How it Works</a></li>
+						{% if user.is_authenticated %}
+							<li ><a href="{% url 'account_logout' %}">Log out</a></li>
+							<li ><a href="{% url 'view_dashboard' %}">View your dashboard</a></li>
+						{% else %}
+							<li ><a href="{% url 'account_signup' %}">Sign up</a></li>
+							<li ><a href="{% url 'account_login' %}">Log in</a></li>
+						{% endif %}
+					</ul>
+					
+				</div>
+			</nav>
+		
+			{% block content%}
+			{% endblock  %}
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/additional-methods.min.js"></script>
+		<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<!-- <script src="{% static 'js/validators.js' %}"></script> -->
+		<script src="{% static 'js/questions.js' %}"></script>		
+	</body>
+</html>
