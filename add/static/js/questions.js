@@ -1,9 +1,8 @@
 $(document).ready(function() {
 	$(".addQuestion").click(function() {
-		// $("#questionform").remove();
 		$('#question').addClass("form-group");
-		// $('#questionform').append('<label for="question">Enter question:</label>')
-		$('#questionform').append('<input id = "question" type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type question here" style="width:80%;"></br>');
+		$('#questionform').append('<label for="question">Enter question:</label>')
+		$('#questionform').append('<input id = "question" type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type question here" style="width:80%;" autofocus=""></br>');
 		$('#questionform').append('<input id="submitquestion" type="submit" class="btn-default btn-default2" value="submit question">');
 		$('#questionform').append('<input id="deletequestion" type="submit" class="btn-default btn-default2" value="delete question">');
 		$('#questionform').append('<input name="surveyName" type="submit" class="btn-default btn-default1" value="{{ surveys}}" hidden>');
@@ -21,22 +20,22 @@ $(document).ready(function() {
 
 
 
-$(document).ready(function() {
-	$("body").on('click', '.questionType', function(){
-		$("button.questionType").attr("disabled", true);
-		$('#deletequestion, #submitquestion, #null').click(function () {
-		    if (this.id == 'deletequestion') {
-		    	// alert('Question has been deleted')
-		         $("button.questionType").attr("disabled", false);
-		    }
-		    else if (this.id == 'submitquestion') {
-		    	// alert('Question has been submitted')
-		         $("button.questionType").attr("disabled", false);
-		    }
+// $(document).ready(function() {
+// 	$("body").on('click', '.questionType', function(){
+// 		$("button.questionType").attr("disabled", true);
+// 		$('#deletequestion, #submitquestion, #null').click(function () {
+// 		    if (this.id == 'deletequestion') {
+// 		    	// alert('Question has been deleted')
+// 		         $("button.questionType").attr("disabled", false);
+// 		    }
+// 		    else if (this.id == 'submitquestion') {
+// 		    	// alert('Question has been submitted')
+// 		         $("button.questionType").attr("disabled", false);
+// 		    }
 
-		});
-	});
-});
+// 		});
+// 	});
+// });
 
 
 // using jQuery
@@ -74,16 +73,24 @@ $.ajaxSetup({
 $(document).ready(function() {
 	$("body").on('click', '#realQuestion', function(e){
 		e.preventDefault();
-		alert($(this).val());
+		var data = {question_name: $(this).val(), surveyName:$('#surveyName').val()};
+		var cleanData = JSON.stringify(data);
+		alert(cleanData)
 		$.ajax({
 			type:'POST',
 			url:'/view_dashboard/display_survey/delete_question/',
-			data:{
-				question_name: $(this).val(),
-				surveyName:$('#surveyName').val()
-			},
+			data: cleanData,
 			sucess: function(data){
-				
+				console.log(data.result)
+				// var question = $(this).val();
+				// var Qform = question.concat('Form')
+				// alert(Qform)
+			},
+			err: function(XMLHttpRequest, textStatus, errorThrown){
+				console.log("Status: " + textStatus); console.log("Error: " + errorThrown); 
+				// var question = $(this).val();
+				// var Qform = question.concat('Form')
+				// alert(Qform)
 			}
 		});
 	});
@@ -94,7 +101,7 @@ $(document).ready(function() {
 // 	e.preventDefault();
 // 	$.ajax({
 // 		type:'POST',
-// 		url:'view_dashboard/create_survey/',
+// 		url:'/view_dashboard/create_survey/',
 // 		data:{
 // 			survey_name: $('#surveyName').val(),
 // 			csrfmiddlewaretoken:$('input[survey_name=csrfmiddlewaretoken]').val()

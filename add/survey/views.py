@@ -7,6 +7,19 @@ from django.views.decorators.csrf import csrf_protect
 from .models import *
 from .forms import *
 import json
+from django.core.serializers import serialize
+from django.utils.encoding import force_text
+from django.core.serializers.json import DjangoJSONEncoder
+from django.http import JsonResponse
+
+class LazyEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, YourCustomType):
+            return force_text(obj)
+        return super(LazyEncoder, self).default(obj)
+
+
+
 
 # Create your views here.
 def home(request):
@@ -90,19 +103,27 @@ def save_question(request):
 		Question.objects.create(question_name = question_name,
 								user = current_user,
 								survey_name = CreateSurvey.objects.get(survey_name = survey_name))
-		questions = questions_object = Question.objects.filter(survey_name__survey_name = survey_name)
+		questions = Question.objects.filter(survey_name__survey_name = survey_name)
 		return HttpResponseRedirect('/view_dashboard/')
 
 
 def delete_question(request):
 	print("I have entered the delete_question view")
-	print(request.POST)
 	if request.method =="POST":
-		ans = dict(request.POST)
-		question_name = ans.get("question_name", None)
-		question_name = question_name [0]
-		survey_name = ans.get("surveyName", None)
-		survey_name = survey_name [0]
-		Question.objects.filter(question_name=question_name).delete()
-		questions = Question.objects.filter(survey_name__survey_name = survey_name)
-		return render(request, 'questions.html', {'questions': questions, 'surveys': survey_name})
+		ans = request.body.decode('utf8').replace("'", '"') #Converts the response from bytes into a string
+		data = json.loads(ans) # Conver the data into a json object
+		question_name = data["question_name"] # Get the question_name and survey_name from the dictionary
+		survey_name = data["surveyName"]
+		Question.objects.filter(question_name=question_name).delete() #delete question
+		'''The line below queries the model for questions associated with the 
+		survye_name that have not been deleted'''
+		questions =Question.objects.filter(survey_name__survey_name = survey_name)
+		'''I have a class LazyEncorder above obtained from django documenation. I have
+		used the code to convert django objects into a state that can be converted 
+		into json.'''
+		questions = serialize('json', questions, cls=LazyEncoder)
+		'''Convert the data that is to be sent to ajax into json'''
+		data = json.dumps({'questions': questions, 'surveys': survey_name})
+		
+		return HttpResponse(data)
+	

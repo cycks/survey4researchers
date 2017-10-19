@@ -34,7 +34,7 @@
 				{% if questions %}
 					{% for question in questions %}
 					<li">
-						<form >{% csrf_token %}	
+						<form id="{{ question.question_name}}Form">{% csrf_token %}	
 							<div class="col-sm-8" style="padding-top: 20px;">
 								<p>{{ question.question_name}}</p><hr>
 							</div>
@@ -42,7 +42,7 @@
 								
 								<button id="realQuestion" class="btn pull-right" type="button" value = "{{ question.question_name}}">Delete Question</button>
 								<input id = "surveyName" type="text" name="surveyName" value = "{{ surveys}}" hidden>
-								<!-- The input above s not required by the user, but it is used to send the name of the survey to the backend -->
+								<!-- The input above is not required by the user, but it is used to send the name of the survey to the backend -->
 								<button style="margin-right: 20px;" id='addAnswer' class="btn pull-right" type="button">Add Answer</button>
 							</div>
 						</form>	
