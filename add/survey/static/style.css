@@ -45,7 +45,7 @@ p {
 section
 {
     display : inline-block;
-    width : 68em;
+    width : 67em;
     height : 50em;
     border-width : 0.5em;
     border-style : double;
@@ -57,7 +57,7 @@ section
 aside
 {
     display : inline-block;
-    width : 25em;
+    width : 24em;
     height : 50em;
     border-width : 0.5em;
     border-style : double;

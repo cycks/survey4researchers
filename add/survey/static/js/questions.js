@@ -68,30 +68,36 @@ $.ajaxSetup({
     }
 });
 
-
+// The code below is used to remove a question from the front end after 
+// the question is deleted in the backend. A post request is sent to the
+// delete question view the succes and error callbacks are not working
+//but the complete callback is working. So I decided to remove the the 
+// question from the front end in the complete call back.
 
 $(document).ready(function() {
 	$("body").on('click', '#realQuestion', function(e){
 		e.preventDefault();
+		var question = $(this).val();
 		var data = {question_name: $(this).val(), surveyName:$('#surveyName').val()};
 		var cleanData = JSON.stringify(data);
-		alert(cleanData)
 		$.ajax({
 			type:'POST',
 			url:'/view_dashboard/display_survey/delete_question/',
 			data: cleanData,
+			dataType:'text',
 			sucess: function(data){
-				console.log(data.result)
-				// var question = $(this).val();
-				// var Qform = question.concat('Form')
-				// alert(Qform)
+				console.log(data)
+				
 			},
-			err: function(XMLHttpRequest, textStatus, errorThrown){
-				console.log("Status: " + textStatus); console.log("Error: " + errorThrown); 
-				// var question = $(this).val();
-				// var Qform = question.concat('Form')
-				// alert(Qform)
-			}
+			error: function () {
+		        OnError(error)
+		    },
+		    complete: function (data) {
+		        var questionid = JSON.parse(data.responseText).id;
+		        $('#'+ questionid).remove();
+		        alert('question deleted')
+
+		    }
 		});
 	});
 });

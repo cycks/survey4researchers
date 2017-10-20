@@ -11,6 +11,10 @@ from django.core.serializers import serialize
 from django.utils.encoding import force_text
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import JsonResponse
+from django.forms.models import model_to_dict
+
+
+
 
 class LazyEncoder(DjangoJSONEncoder):
     def default(self, obj):
@@ -95,7 +99,6 @@ def display_survey(request):
 def save_question(request):
 	print("I have entered the save_question view")
 	if request.method =="POST":
-		print("This is a post request")
 		current_user = request.user
 		survey_name = request.POST.get('surveyName')
 		survey_name_object = CreateSurvey.objects.filter(survey_name = survey_name)
@@ -111,19 +114,18 @@ def delete_question(request):
 	print("I have entered the delete_question view")
 	if request.method =="POST":
 		ans = request.body.decode('utf8').replace("'", '"') #Converts the response from bytes into a string
-		data = json.loads(ans) # Conver the data into a json object
+		data = json.loads(ans) # Convert the data into a json object
 		question_name = data["question_name"] # Get the question_name and survey_name from the dictionary
 		survey_name = data["surveyName"]
+		question = Question.objects.filter(question_name=question_name).values()
+		questionid = [i["id"] for i in question][0]
 		Question.objects.filter(question_name=question_name).delete() #delete question
 		'''The line below queries the model for questions associated with the 
 		survye_name that have not been deleted'''
-		questions =Question.objects.filter(survey_name__survey_name = survey_name)
-		'''I have a class LazyEncorder above obtained from django documenation. I have
-		used the code to convert django objects into a state that can be converted 
-		into json.'''
-		questions = serialize('json', questions, cls=LazyEncoder)
+		questions_list = Question.objects.filter(survey_name__survey_name = survey_name).values()
+		questions = [i["question_name"] for i in questions_list]
 		'''Convert the data that is to be sent to ajax into json'''
-		data = json.dumps({'questions': questions, 'surveys': survey_name})
-		
+		data = json.dumps({'questions': questions, 'surveys': survey_name, 'id': questionid})
+		print(data)
 		return HttpResponse(data)
 	
