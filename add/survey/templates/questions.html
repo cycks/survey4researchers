@@ -1,0 +1,93 @@
+
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content%}
+{% load bootstrap %}
+
+<div class = "row">
+	
+</div>
+<div class = "questioncontainer">
+	<section> 
+		<div id = "row questionsRow"> 
+			<div class = "container-fluid">
+				<div id="question" >
+					<div class = "dropdown" style="margin-bottom: 35px;">
+						<button class = "chooseQuestionType dropdown-toggle btn-default" data-toggle = "dropdown" style="text-align: center; padding: 1% 0; display:none;">
+							Choose the type of question <span class = "caret"></span>
+						</button>
+						<ul class = "dropdown-menu list-group">
+							<li style="margin-bottom:5px;"><button class="btn-default Open_ended" style=" width: 15em;">Open ended</button></li>
+						    <li style="margin-bottom:5px;"><button class="btn-default Multiple_choice" style=" width: 15em;">Multiple choice</button></li>
+							<li style="margin-bottom:5px;"><button class="btn-default Single_choice" style=" width: 15em;">Single choice</button></li>
+							<li style="margin-bottom:5px;"><button class="btn-default Open_ended" style=" width: 15em;">Bipolar</button></li>
+							<li style="margin-bottom:5px;"><button class="btn-default Open_ended" style=" width: 15em;">Rating</button></li>
+							<li style="margin-bottom:5px;"><button class="btn-default Open_ended" style=" width: 15em;">Multiple choice</button></li>	
+							<li style="margin-bottom:5px;"><button class="btn-default Open_ended" style=" width: 15em;">Date time</button></li>		
+						</ul>
+					</div>
+					<form id='questionform' action='save_question/' method='post'>{% csrf_token %}
+						<input type="text" id = "surveyName" name = "surveyName" value="{{ surveys}}" hidden></br>	
+						<div id="answer" style= "text-align: center; margin-top: 5px;"></div>
+						<div class="submitDelete" style="display:none;">
+							<button id="submitquestion" type="submit" class="btn-default btn-default2" value="submit question">Submit Question</button>
+							<input id = "surveyName" type="text" name="surveyName" value = "{{surveys}}" hidden>
+							<button id="deletequestion" type="submit" class="btn-default btn-default2" value="delete question">Delete Question</button>
+						</div>
+					</form>
+
+					
+				</div>
+				
+
+			</div>
+			
+			<div class = "container-fluid">
+				<div class="row">
+					<nav class = "navbar" style = "text-align: center;"><h4>{{ surveys}}</h4></nav>
+					<form id='deleteSurvey' action='delete_survey/' method='post'>{% csrf_token %}
+						<button class="btn-default pull-right" type="text" id = "deletesurveyName" name = "deletesurveyName" value="{{surveys}}">Delete Survey</button></br>		
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class = "container-fluid">
+			<div class="row">
+				{% if not questions %}
+					<p style="padding-left: 20px;">You do not have any questions under {{ surveys}} </p>
+				{% endif %}
+				{% if questions %}
+					{% for question in questions %}
+					<li style = "list-style: none";>
+						<form id = "{{question.id}}" class="QuesForm" >{% csrf_token %}	
+							<div class="col-sm-12 questionColumn" style="padding-top: 20px;">
+								<div>
+									<!-- The div element is used to assign ids dynamically. So, it is important-->
+									<div>
+										<p>{{ question.question_name}}</p>
+									</div>
+									<div class="deladdColumn" style="padding-top: 20px;">
+										<button id="realQuestion" class="btn pull-left" type="button" value = "{{ question.question_name}}">Delete Question</button>
+										<input id = "surveyName" type="text" name="surveyName" value = "{{surveys}}" hidden>
+										<!-- The input above is not required by the user, but it is used to send the name of the survey to the backend -->
+										<button id='addAnswer' class="btn pull-right" type="button" >Add Answer</button>
+									</div></br>
+									
+								</div>
+								<hr>
+							</div>
+						</form>			
+					</li>
+					{% endfor %}
+				{% endif %}
+			<div>
+		</div>
+	</section>
+	</div>
+	<aside>	
+		<ul style="list-style-type:none; margin-top: 35px;">
+			<li><button id = 'null' class="btn-default addQuestion" title="You must submit or delete the question before proceeding after clicking this button."><div><p>addQuestion</p></div></button></li><br>
+		</ul>
+	</aside>
+</div>
+{% endblock  %}

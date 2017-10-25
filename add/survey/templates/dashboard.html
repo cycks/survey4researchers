@@ -1,0 +1,76 @@
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block content%}
+{% load bootstrap %}
+
+<div class = "row">
+	
+	{% if messages %}
+		<ul class="messages list-group" style = "padding-left: 20px; width: 53em; margin-left: 250px;">
+		    {% for message in messages %}
+		    <li class="{{ message.tags }} list-group-item list-group-item-danger" >
+		        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error: {% endif %}
+		        {{ message }}
+		    </li>
+		    {% endfor %}
+		</ul>
+	{% endif %}
+	
+
+  <!-- Modal -->
+  
+</div>
+<div class = "questioncontainer">
+	<section> 
+		<button type="button" class="btn btn-default btn-md pull-right" data-toggle="modal" data-target="#surveyNameModal" style="margin-right: 20px; margin-top: 20px">Create survey</button>
+
+		<div class="modal fade" id="surveyNameModal" role="dialog">
+		<div class="modal-dialog">
+		
+		  <!-- Modal content-->
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title">Name your survey.</h4>
+			</div>
+			<div class="modal-body">
+
+				<form id="surveyNameForm" class="form-horizontal" action="create_survey/" method="post" name = "name-survey">
+					{% csrf_token %}
+					<label for = "nameOfSurvey">Survey Name:</label>
+					<input class="form-control" placeholder="Type the name of your survey" type="text" id = "surveyName" name = "surveyName" required></br>
+					<input id ="surveyNameButton" type="submit" value="Create survey" class = "btn btn-default">
+					<button class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+				</form>
+			</div>
+		  </div>
+		  
+		</div>
+	  </div>
+
+
+
+
+
+	</section>
+	</div>
+	<aside>
+
+		<li class="list-group-item" style = "background-color: #FA6501;"><h4>Your Surveys</h4></li>
+		<form action="display_survey/" method="post">
+		{% csrf_token %}
+		{% for survey in surveys %}
+			
+			<li class="list-group-item" style="padding-top: 2px; padding-bottom: 2px;"><button class="btn-default surveyQuestions" title="You must" id = "surveyQuestions" name = 'surveyName' value = "{{ survey|slugify}}"><div><p>{{ survey|slugify}}</p></div></button></li><br>
+
+		{% endfor %}
+		</form>
+	</aside>
+
+
+		
+			
+
+</div>
+
+{% endblock  %}
