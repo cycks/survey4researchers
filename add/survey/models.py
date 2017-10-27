@@ -19,8 +19,8 @@ class Question(models.Model):
 	question_choices = (
 							("OPEN ENDED", "openEnded"),
 							("SINGLE CHOICE", "singleChoice"),
-							("BIPOLAR", "bipolar"),
-							("RATING", "rating"),
+							("BIPOLAR", "Bipolar"),
+							("RATING", "Rating"),
 							("MULTIPLE ANSWERS", "multipleChoice"),
 							("DATE/TIME", "dateTime"),
 						)
@@ -32,7 +32,7 @@ class QuestionChoices(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	survey_name = models.ForeignKey(CreateSurvey, on_delete=models.CASCADE)
 	question_name = models.ForeignKey(Question, on_delete = models.CASCADE)
-	possible_choice = models.TextField(null=True)
+	possible_choices = models.TextField(null=True)
 
 
 

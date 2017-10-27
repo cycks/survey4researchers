@@ -1,27 +1,90 @@
-$(document).ready(function() {
-	$(".Open_ended").click(function() {
-		$('#question').addClass("form-group");
-		$('#questionform').append('<input id = "questionText" type="text" class="form-control col-md-6 col-md-offset-1" name = "questionName" value="Type question here" style="width:80%;" required=""></br>');
-		$('#questionform').append('<input type="text" class="form-control col-md-6 col-md-offset-1" value="Type the answer here" style="width:80%; margin-top: 35px; margin-bottom: 15px;">');
-		$('#questionform').append('<input name="surveyName" type="submit" class="btn-default btn-default1" value="{{ surveys}}" hidden>');
-		$('.submitDelete').css('display','block');
+var addQuestionText = '<div class = "container-fluid">'+
+							'<div class = "row">'+
+								'<input id = "questionText" type="text"'+
+								' class="form-control col-md-6" name = "questionName"'+
+								' value="Type question here" style="width:80%;" required=""></br>'+
+							'</div>'+
+						'</div>';
 
-		// $("body").on('click', '#submitquestion', function() {
-		// 	location.reload();
-		// });
+
+
+var addOpenEnded = '<div class = "container-fluid">'+
+							'<div class = "row">'+
+								'<input type="text" class="form-control'+
+										' col-md-6" value="Type the answer here" style="width:80%;'+
+										' margin-top: 15px; margin-bottom: 15px;">'
+								'</div>'+
+						'</div>';
+
+
+
+var addMultipleChoice ='<div class = "container-fluid">'+
+							'<div class = "row">'+
+								'<div class = "col-md-8">'+
+									'<input type="text" class="form-control col-md-6 pull-left" value="Type a multiple choice here" style= "margin-top: 15px; margin-right: 0px;">'+
+								'</div>'+
+								'<div class = "col-md-2">'+
+									'<input type="checkbox" value="Enter choices" class = "pull-left" style="margin-top: 25px;  transform: scale(2.0)">'+
+									'<i style="margin-top: 18px; margin-left: 20px;" class="addMultipleChoice fa fa-plus-square fa-2x pull-left" aria-hidden="true"></i>'+
+									'<i style="margin-top: 18px; margin-left: 20px;" class="removeMultipleChoice fa fa-minus-square fa-2x" aria-hidden="true"></i>'
+								'</div>'+
+							'</div>'+
+						'</div>';
+
+
+
+
+$(document).ready(function() {
+	$("body").on('click', ".Open_ended", function(e){
+		$('.chooseQuestionType').css('display','none');
+		$('#question').addClass("form-group");
+		$('#questionform').append(addQuestionText);
+		$('#questionform').append(addOpenEnded);
+		$('.submitDelete').css('display','block');
 
 		$("body").on('click', '#deletequestion', function() {
 			location.reload();
 		});
-
+		return
 	});
 });
+	
+
+$(document).ready(function() {
+	$("body").on('click', ".Multiple_choice", function(e){
+		$('.chooseQuestionType').css('display','none');
+		$('#question').addClass("form-group");
+		$('#questionform').append(addQuestionText);
+		$('#questionform').append(addMultipleChoice);
+		$('.submitDelete').css('display','block');
+
+		$("body").on('click', '#deletequestion', function() {
+			location.reload();
+		});
+		return
+	});
+});
+
+
 $(document).ready(function() {
 	$("body").on('click', '.addQuestion', function(e){
+		$('.hiddenQuestion').css('display','block');
 		$('.chooseQuestionType').css('display','block');
 	});
 });
 
+$(document).ready(function() {
+	$("body").on('click', '.addMultipleChoice', function(e){
+		$('#questionform').append(addMultipleChoice);		
+	});
+});
+
+
+$(document).ready(function() {
+	$("body").on('click', '.removeMultipleChoice', function(e){
+		 $(this).parents('.container-fluid:first').remove();		
+	});
+});
 
 
 // using jQuery
@@ -61,7 +124,7 @@ $.ajaxSetup({
 // question from the front end in the complete call back.
 
 $(document).ready(function() {
-	$("body").on('click', '#realQuestion', function(e){
+	$("body").on('click', '.realQuestion', function(e){
 		e.preventDefault();
 		var question = $(this).val();
 		var data = {question_name: $(this).val(), surveyName:$('#surveyName').val()};
@@ -84,20 +147,31 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-	$("body").on('click', '#realQuestion', function(e){
+	$("body").on('click', '#submitquestion', function(e){
 		e.preventDefault();
-		var question = $(this).val();
-		var data = {question_name: $(this).val(), surveyName:$('#surveyName').val()};
+		$('.hiddenQuestion').css('display','none');
+		$('.submitDelete').css('display','none');
+		var data = {
+					question_type: $('.Open_ended').val(), 
+					surveyName: $('#surveyName').val(),
+					question_name: $('#questionText').val(),
+					};
+		alert($('.addQuestionToList.realQuestion').val())
 		var cleanData = JSON.stringify(data);
 		$.ajax({
 			type:'POST',
-			url:'/view_dashboard/display_survey/delete_question/',
+			url:'/view_dashboard/display_survey/save_question/',
 			data: cleanData,
 			dataType: 'json',
-			success: function(data) { 
-				var questionid = data.id
-				$('#'+ questionid).remove();
-				alert("Question Deleted"); 
+			success: function(data) {
+				console.log(data);
+				$('#changeFormId').prop("id", data.id);
+				$('#appendQuestion').append(data.question);
+				$('#deleteAddedQuestion').attr("value", data.question);
+				$('#appendSurvey').attr("value", data.surveys);
+				$('.addQuestionToList').css('display','block');
+
+				// $('#questionList').append(data.id data.question data.question);
 			},
     		error: function(jqXHR, textStatus, errorThrown) {alert(errorThrown)}        
 		});

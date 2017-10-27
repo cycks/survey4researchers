@@ -97,18 +97,27 @@ def save_question(request):
 	print("I have entered the save_question view")
 	if request.method =="POST":
 		current_user = request.user
-		survey_name = request.POST.get('surveyName')
-		question_name = request.POST.get('questionName')
+		ans = request.body.decode('utf8').replace("'", '"') #Converts the response from bytes into a string
+		data = json.loads(ans) # Convert the data into a json object
+		print(data)
+		question_name = data["question_name"] # Get the question_name and survey_name from the dictionary
+		survey_name = data["surveyName"]
+		question_type = data["question_type"]
 		Question.objects.create(question_name = question_name,
 								user = current_user,
-								survey_name = CreateSurvey.objects.get(survey_name = survey_name))
+								survey_name = CreateSurvey.objects.get(survey_name = survey_name),
+								question_type = question_type)
+		question = Question.objects.filter(question_name=question_name).values()
+		print(question)
+		questionid = [i["id"] for i in question][0]
+
 		questions = Question.objects.filter(survey_name__survey_name = survey_name)
 		'''I have a class LazyEncorder above obtained from django documenation. I have
 		used the code to convert django objects into a state that can be converted 
 		into json.'''
 		questions = serialize('json', questions, cls=LazyEncoder)
 		'''Convert the data that is to be sent to ajax into json'''
-		data = json.dumps({'questions': questions, 'surveys': survey_name})
+		data = json.dumps({'question': question_name, 'surveys': survey_name, 'id': questionid})
 		return HttpResponse(data, content_type="application/json")
 
 
@@ -117,9 +126,11 @@ def delete_question(request):
 	if request.method =="POST":
 		ans = request.body.decode('utf8').replace("'", '"') #Converts the response from bytes into a string
 		data = json.loads(ans) # Convert the data into a json object
+		print(data)
 		question_name = data["question_name"] # Get the question_name and survey_name from the dictionary
 		survey_name = data["surveyName"]
 		question = Question.objects.filter(question_name=question_name).values()
+		print(question)
 		questionid = [i["id"] for i in question][0]
 		Question.objects.filter(question_name=question_name).delete() #delete question
 		'''The line below queries the model for questions associated with the 
