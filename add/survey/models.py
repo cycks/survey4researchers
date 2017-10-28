@@ -25,13 +25,6 @@ class Question(models.Model):
 							("DATE/TIME", "dateTime"),
 						)
 	question_type = models.TextField(question_choices, default= 'openEnded')
-
-
-
-class QuestionChoices(models.Model):
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	survey_name = models.ForeignKey(CreateSurvey, on_delete=models.CASCADE)
-	question_name = models.ForeignKey(Question, on_delete = models.CASCADE)
 	possible_choices = models.TextField(null=True)
 
 

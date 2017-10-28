@@ -99,25 +99,28 @@ def save_question(request):
 		current_user = request.user
 		ans = request.body.decode('utf8').replace("'", '"') #Converts the response from bytes into a string
 		data = json.loads(ans) # Convert the data into a json object
-		print(data)
 		question_name = data["question_name"] # Get the question_name and survey_name from the dictionary
 		survey_name = data["surveyName"]
 		question_type = data["question_type"]
+		question_choices = data["question_choices"]
 		Question.objects.create(question_name = question_name,
 								user = current_user,
 								survey_name = CreateSurvey.objects.get(survey_name = survey_name),
-								question_type = question_type)
+								question_type = question_type,
+								possible_choices = question_choices)
 		question = Question.objects.filter(question_name=question_name).values()
-		print(question)
 		questionid = [i["id"] for i in question][0]
-
+		possible_choices =  [i["possible_choices"] for i in question][0]
 		questions = Question.objects.filter(survey_name__survey_name = survey_name)
 		'''I have a class LazyEncorder above obtained from django documenation. I have
 		used the code to convert django objects into a state that can be converted 
 		into json.'''
 		questions = serialize('json', questions, cls=LazyEncoder)
 		'''Convert the data that is to be sent to ajax into json'''
-		data = json.dumps({'question': question_name, 'surveys': survey_name, 'id': questionid})
+		data = json.dumps({'question': question_name,
+							 'surveys': survey_name,
+							 'id': questionid,
+							 'question_choices':possible_choices})
 		return HttpResponse(data, content_type="application/json")
 
 

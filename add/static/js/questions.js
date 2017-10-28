@@ -1,4 +1,4 @@
-var addQuestionText = '<div class = "container-fluid">'+
+var addQuestionText = '<div class = "added container-fluid">'+
 							'<div class = "row">'+
 								'<input id = "questionText" type="text"'+
 								' class="form-control col-md-6" name = "questionName"'+
@@ -7,8 +7,7 @@ var addQuestionText = '<div class = "container-fluid">'+
 						'</div>';
 
 
-
-var addOpenEnded = '<div class = "container-fluid">'+
+var addOpenEnded = '<div class = "added container-fluid">'+
 							'<div class = "row">'+
 								'<input type="text" class="form-control'+
 										' col-md-6" value="Type the answer here" style="width:80%;'+
@@ -17,11 +16,10 @@ var addOpenEnded = '<div class = "container-fluid">'+
 						'</div>';
 
 
-
-var addMultipleChoice ='<div class = "container-fluid">'+
+var addMultipleChoice ='<div class = "added container-fluid">'+
 							'<div class = "row">'+
 								'<div class = "col-md-8">'+
-									'<input type="text" class="form-control col-md-6 pull-left" value="Type a multiple choice here" style= "margin-top: 15px; margin-right: 0px;">'+
+									'<input type="text" class="uncheckedChoices form-control col-md-6 pull-left" value="Type a choice here" style= "margin-top: 15px; margin-right: 0px;">'+
 								'</div>'+
 								'<div class = "col-md-2">'+
 									'<input type="checkbox" value="Enter choices" class = "pull-left" style="margin-top: 25px;  transform: scale(2.0)">'+
@@ -30,8 +28,8 @@ var addMultipleChoice ='<div class = "container-fluid">'+
 								'</div>'+
 							'</div>'+
 						'</div>';
-
-
+var createMultipleChoiceForm = '<form class = "answerGroup">'+
+							   '</form>'
 
 
 $(document).ready(function() {
@@ -46,8 +44,7 @@ $(document).ready(function() {
 			location.reload();
 		});
 		return
-	});
-});
+	});});
 	
 
 $(document).ready(function() {
@@ -62,29 +59,26 @@ $(document).ready(function() {
 			location.reload();
 		});
 		return
-	});
-});
+	});});
 
 
 $(document).ready(function() {
 	$("body").on('click', '.addQuestion', function(e){
 		$('.hiddenQuestion').css('display','block');
 		$('.chooseQuestionType').css('display','block');
-	});
-});
+		$('.added').remove();
+	});});
 
 $(document).ready(function() {
 	$("body").on('click', '.addMultipleChoice', function(e){
 		$('#questionform').append(addMultipleChoice);		
-	});
-});
+	});});
 
 
 $(document).ready(function() {
 	$("body").on('click', '.removeMultipleChoice', function(e){
 		 $(this).parents('.container-fluid:first').remove();		
-	});
-});
+	});});
 
 
 // using jQuery
@@ -101,21 +95,18 @@ function getCookie(name) {
             }
         }
     }
-    return cookieValue;
-}
+    return cookieValue;}
 var csrftoken = getCookie('csrftoken');
 
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));}
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
         }
-    }
-});
+    }});
 
 // The code below is used to remove a question from the front end after 
 // the question is deleted in the backend. A post request is sent to the
@@ -142,8 +133,13 @@ $(document).ready(function() {
     		error: function(jqXHR, textStatus, errorThrown) {alert(errorThrown)}        
 		});
 		return
-	});
-});
+	});});
+
+// The code below declare the type of question as a global variable
+var questionTypeChosen; 
+$(document).on('click', '.question_type', function(e){
+			questionTypeChosen = $(this).val();
+			alert(questionTypeChosen);});
 
 
 $(document).ready(function() {
@@ -151,12 +147,15 @@ $(document).ready(function() {
 		e.preventDefault();
 		$('.hiddenQuestion').css('display','none');
 		$('.submitDelete').css('display','none');
+		var choices = $('.uncheckedChoices').map(function() {
+						    return $(this).val();
+						}).get();
 		var data = {
-					question_type: $('.Open_ended').val(), 
+					question_type: questionTypeChosen, 
 					surveyName: $('#surveyName').val(),
 					question_name: $('#questionText').val(),
+					question_choices: choices,
 					};
-		alert($('.addQuestionToList.realQuestion').val())
 		var cleanData = JSON.stringify(data);
 		$.ajax({
 			type:'POST',
@@ -165,11 +164,21 @@ $(document).ready(function() {
 			dataType: 'json',
 			success: function(data) {
 				console.log(data);
+				var currentChoices = data.question_choices;
+				var currentChoices = currentChoices.replace(/'/g, '"');
+				currentChoices = JSON.parse(currentChoices);
 				$('#changeFormId').prop("id", data.id);
 				$('#appendQuestion').append(data.question);
+				$('#appendQuestion').append(createMultipleChoiceForm);
+				$('.answerGroup').attr("value", "aF"+data.id);
+				for (i = 0; i < currentChoices.length; ++i) {
+					  $('#appendQuestion').append('<input type="checkbox" value="'+currentChoices[i]+
+					  	'"><span>'+currentChoices[i]+'</span><br>')
+					}
 				$('#deleteAddedQuestion').attr("value", data.question);
 				$('#appendSurvey').attr("value", data.surveys);
 				$('.addQuestionToList').css('display','block');
+				// $('#appendQuestion').attr("value", "aQ"+data.id);
 
 				// $('#questionList').append(data.id data.question data.question);
 			},
