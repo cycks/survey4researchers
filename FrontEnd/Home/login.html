@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset ="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale = 1">
+		<title>Survey for researchers</title>
+		<link rel="stylesheet" type="text/css" href = "../styles/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href = "../styles/style.css">
+		<!-- <link rel="stylesheet" style="text/css" href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">  -->
+		<!-- <script src="https://use.fontawesome.com/64d0014f81.js"></script> -->
+	</head>
+	<body>
+	<div class = "container-fluid">
+		<h1>Survey for Researchers</h1>
+		<nav class = "navbar navbar-fixed-relative">
+			<div class = "nav navbar-nav">
+				<ul class = "nav navbar-nav navbar-left">
+					<li ><a href="home.html">Home</a></li>
+					<li ><a href="#">Contact Us</a></li>
+					<li ><a href="#">About</a></li>
+					<li ><a href="#">How it Works</a></li>
+					<li ><a href="logout.html">Log out</a></li>
+					<li ><a href="dashboard.html">View your dashboard</a></li>
+					<li ><a href="signup.html">Sign up</a></li>
+					<li ><a href="login.html">Log in</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div class = "col-md-4 col-md-offset-4">
+			<h1>Sign In</h1>
+			<p>If you have not created an account yet, then please
+				<a href="signup.html">sign up</a> first.</p>
+				<form class="login" method="POST" action="dashboard.html">
+					<input type="hidden" name="csrfmiddlewaretoken" value="KV8So9WXrgW0gx7Vdt5IqA7K2KjLoYpZ1khKKjE8Cmdf82MGSIeXEI15TweBKHW6">
+					<div class="form-group">
+						<label class="control-label  " for="id_login">Username</label>
+						<div class=" ">
+							<input type="text" name="login" placeholder="Username" autofocus="autofocus" maxlength="150" class=" form-control" required id="id_login">
+						</div> 
+					</div>
+					<div class="form-group">
+						<label class="control-label  " for="id_password">Password</label>
+						<div class=" ">
+							<input type="password" name="password" placeholder="Password" class=" form-control" required id="id_password">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="">
+							<div class="checkbox">
+								<label >
+									<input type="checkbox" name="remember" id="id_remember"> <span>Remember Me</span>
+								</label>
+							</div>
+						</div>
+					</div>
+					<a class="button secondaryAction" href="/accounts/password/reset/">Forgot Password?</a>
+					<button class="primaryAction" type="submit">Sign In</button>
+				</form>
+			</div>
+		</div>
+		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/questions.js"></script>
+	</body>
+</html>

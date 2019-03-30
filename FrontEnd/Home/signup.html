@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset ="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale = 1">
+		<title>Survey for researchers</title>
+		<link rel="stylesheet" type="text/css" href = "../styles/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href = "../styles/style.css">
+		<!-- <link rel="stylesheet" style="text/css" href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">  -->
+		<!-- <script src="https://use.fontawesome.com/64d0014f81.js"></script> -->
+	</head>
+	<body>
+		<div class = "container-fluid">
+			<h1>Survey for Researchers</h1>
+			<nav class = "navbar navbar-fixed-relative">
+				<div class = "nav navbar-nav">
+					<ul class = "nav navbar-nav navbar-left">
+						<li ><a href="home.html">Home</a></li>
+						<li ><a href="#">Contact Us</a></li>
+						<li ><a href="#">About</a></li>
+						<li ><a href="#">How it Works</a></li>
+						<li ><a href="logout.html">Log out</a></li>
+						<li ><a href="dashboard.html">View your dashboard</a></li>
+						<li ><a href="signup.html">Sign up</a></li>
+						<li ><a href="login.html">Log in</a></li>
+					</ul>
+				</div>
+			</nav>
+			<div class = "col-md-4 col-md-offset-4">
+				<h1>Sign Up</h1>
+				<p>Already have an account? Then please <a href="login.html">sign in</a>.</p>
+				<form class="signup" id="signup_form" method="post" action="dashboard.html">
+					<input type="hidden" name="csrfmiddlewaretoken" value="Qb6rpl6Rico5Z8bcjMKj951qbfpUvukq7AfjLvO2tiFkRDQXY1TyndVL21kKRdRx">
+					<div class="form-group">
+						<label class="control-label  " for="id_username">Username</label>
+						<div class=" ">
+							<input type="text" name="username" placeholder="Username" autofocus="autofocus" minlength="8" maxlength="150" class=" form-control" required id="id_username">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label  " for="id_email">E-mail (optional)</label>
+						<div class=" ">
+							<input type="email" name="email" placeholder="E-mail address" class=" form-control" id="id_email">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label  " for="id_password1">Password</label>
+						<div class=" ">
+							<input type="password" name="password1" placeholder="Password" class=" form-control" required id="id_password1">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label  " for="id_password2">Password (again)</label>
+						<div class=" ">
+							<input type="password" name="password2" placeholder="Password (again)" class=" form-control" required id="id_password2">
+						</div>
+					</div>
+					<button type="submit">Sign Up &raquo;</button>
+				</form>
+			</div>
+		</div>
+		<script src="../js/jquery-3.2.1.min.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/questions.js"></script>
+	</body>
+</html>
